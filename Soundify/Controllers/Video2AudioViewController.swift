@@ -45,19 +45,12 @@ class Video2AudioViewController: UIViewController {
     @IBAction func audioPlayButtonClicked(_ sender: Any) {
         print("Video2AudioViewController - audioPlayButtonClicked")
             
-            // audioOutputURL이 nil인 경우 재생하지 않도록 확인
-            guard let audioURL = audioOutputURL else {
-                print("오디오 파일이 존재하지 않습니다.")
-                return
-            }
-            
-            // AVPlayer 생성 및 재생
-            let player = AVPlayer(url: audioURL)
-            let playerVC = AVPlayerViewController()
-            playerVC.player = player
-            present(playerVC, animated: true) {
-                player.play()
-            }
+        // audioOutputURL이 nil인 경우 재생하지 않도록 확인
+        guard let audioURL = audioOutputURL else {
+            print("오디오 파일이 존재하지 않습니다.")
+            return
+        }
+        AudioManager.shared.playMusicByURL(url: audioURL)
     }
     
 }
