@@ -10,8 +10,10 @@ import AVFoundation
 import AVKit
 
 class Video2AudioViewController: UIViewController {
+    
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var playButtonView: UIButton!
+    @IBOutlet var formatPopupButton: UIButton!
     
     var videoURL: URL? = nil
     var audioOutputURL: URL? = nil
@@ -21,12 +23,15 @@ class Video2AudioViewController: UIViewController {
         super.viewDidLoad()
         print("Video2AudioViewController - viewDidLoad")
         
+        initUI()
         // 앱의 Document 디렉토리 경로를 가져옴
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             self.documentsDirectory = documentsDirectory
         } else {
             print("documentsDirectory 오류")
         }
+        formatPopupButtonClicked()
+        nameTextField.delegate = self
         
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
@@ -38,9 +43,29 @@ class Video2AudioViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         AudioManager.shared.stopMusic()
     }
+    
+    func initUI() {
+        nameTextField.addLeftAndRightPadding(size: 10)
+        nameTextField.layer.cornerRadius = 8
+        formatPopupButton.layer.cornerRadius = 8
+    }
 
     @IBAction func backButtonClicked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    /// 팝업버튼 등록
+    func formatPopupButtonClicked() {
+        let optionClosure = {(action : UIAction) in
+            print (action.title)
+        }
+        formatPopupButton.menu = UIMenu (children : [
+            UIAction(title : ".m4a", state : .on, handler: optionClosure),
+            UIAction(title : ".mp3", handler: optionClosure),
+            UIAction (title : ".wav", handler: optionClosure)
+        ])
+        formatPopupButton.showsMenuAsPrimaryAction = true
+        formatPopupButton.changesSelectionAsPrimaryAction=true
     }
     
     @IBAction func addButtonClicked(_ sender: Any) {
@@ -74,18 +99,20 @@ class Video2AudioViewController: UIViewController {
         
         let asset = AVAsset(url: videoURL!)
         // AVAsset에서 오디오 트랙을 분리하고 .m4a 오디오 파일로 저장
+        // TODO: 비동기 처리 잘 안됨
         asset.writeAudioTrackToURL(self.audioOutputURL!) { (success, error) in
             if success {
                 print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioOutputURL)) ")
-                // 재생 버튼 활성화 등 원하는 추가 작업 수행
+                // 저장 완료 후 공유 (메인 스레드에서 실행)
+                DispatchQueue.main.async {
+                    let activityViewController = UIActivityViewController(activityItems: [audioURL], applicationActivities: nil)
+                    self.present(activityViewController, animated: true, completion: nil)
+                }
+
             } else {
                 print("오디오 트랙 저장 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
             }
         }
-        
-        // 공유할 파일의 URL을 배열로 만들어서 UIActivityViewController에 전달
-        let activityViewController = UIActivityViewController(activityItems: [audioURL], applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
     }
 }
 
@@ -155,4 +182,13 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
         }
     }
  
+}
+
+extension Video2AudioViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }

@@ -6,6 +6,8 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -234,6 +236,18 @@
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-54-ujk">
+                                <rect key="frame" x="179" y="284" width="20" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="LableBlack"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                </state>
+                                <connections>
+                                    <action selector="audioPlayButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="5zg-40-c1M"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0og-m4-Wop">
                                 <rect key="frame" x="159" y="374" width="74" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -243,25 +257,59 @@
                                     <action selector="ExportButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="RFk-LU-Nsl"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="hello" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ea6-Ew-Oks">
-                                <rect key="frame" x="43" y="177" width="292" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="NabTabGray"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-54-ujk">
-                                <rect key="frame" x="179" y="283" width="20" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="LableBlack"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="play" catalog="system" symbolScale="large"/>
-                                </state>
-                                <connections>
-                                    <action selector="audioPlayButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="5zg-40-c1M"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xOW-62-PEF">
+                                <rect key="frame" x="24" y="139" width="342" height="112"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="pGc-bW-25h">
+                                        <rect key="frame" x="0.0" y="0.0" width="342" height="52"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqy-1T-TBM">
+                                                <rect key="frame" x="0.0" y="11.666666666666659" width="109.66666666666667" height="28.666666666666671"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                                <color key="textColor" name="LableBlack"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFo-ro-wlh">
+                                                <rect key="frame" x="128.66666666666663" y="0.0" width="213.33333333333337" height="52"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BKB-cz-Bka">
+                                        <rect key="frame" x="0.0" y="64" width="342" height="48"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="hello" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ea6-Ew-Oks">
+                                                <rect key="frame" x="0.0" y="0.0" width="266" height="48"/>
+                                                <color key="backgroundColor" name="BoxGray"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="rXZ-yd-Bvd"/>
+                                                </constraints>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhc-ZL-tfY">
+                                                <rect key="frame" x="278" y="0.0" width="64" height="48"/>
+                                                <color key="backgroundColor" name="BoxGray"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="jhc-ZL-tfY" secondAttribute="height" multiplier="4:3" id="m4A-Io-wx6"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <menu key="menu" id="WJm-0X-hxC">
+                                                    <children>
+                                                        <command title=".m4a" id="dbZ-XM-Fvc" userLabel=".m4a"/>
+                                                        <command title=".mp3" id="QjF-HJ-6Ol" userLabel=".mp3"/>
+                                                        <command title=".wav" id="ihM-Ee-quz" userLabel=".wav"/>
+                                                    </children>
+                                                </menu>
+                                                <state key="normal" title="Button">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d2d-IA-7rY"/>
                         <color key="backgroundColor" name="BackGroundWhite"/>
@@ -270,14 +318,18 @@
                             <constraint firstItem="rpi-Bg-ayW" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" id="6I1-XL-ACR"/>
                             <constraint firstItem="jyh-uQ-QZH" firstAttribute="centerX" secondItem="rpi-Bg-ayW" secondAttribute="centerX" id="AoR-xw-T03"/>
                             <constraint firstItem="DRJ-FF-imr" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" id="Bqn-A9-hKw"/>
+                            <constraint firstItem="xOW-62-PEF" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" constant="24" id="E8H-rx-Wrl"/>
                             <constraint firstItem="DRJ-FF-imr" firstAttribute="top" secondItem="Wj8-BI-9ej" secondAttribute="top" id="MFw-pa-8F3"/>
                             <constraint firstItem="rpi-Bg-ayW" firstAttribute="bottom" secondItem="DRJ-FF-imr" secondAttribute="bottom" id="RYm-vO-0tV"/>
                             <constraint firstItem="jyh-uQ-QZH" firstAttribute="centerY" secondItem="rpi-Bg-ayW" secondAttribute="centerY" id="bzo-7d-Uv3"/>
+                            <constraint firstItem="xOW-62-PEF" firstAttribute="top" secondItem="DRJ-FF-imr" secondAttribute="bottom" constant="36" id="dKL-VQ-Qy1"/>
                             <constraint firstItem="rpi-Bg-ayW" firstAttribute="top" secondItem="d2d-IA-7rY" secondAttribute="top" id="dh3-Ka-uGF"/>
                             <constraint firstItem="d2d-IA-7rY" firstAttribute="trailing" secondItem="rpi-Bg-ayW" secondAttribute="trailing" id="fMx-aU-dU0"/>
+                            <constraint firstItem="d2d-IA-7rY" firstAttribute="trailing" secondItem="xOW-62-PEF" secondAttribute="trailing" constant="24" id="jNO-oh-VYe"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="formatPopupButton" destination="jhc-ZL-tfY" id="EfA-Ex-Mxs"/>
                         <outlet property="nameTextField" destination="ea6-Ew-Oks" id="Yrl-t9-ErW"/>
                         <outlet property="playButtonView" destination="zBw-54-ujk" id="suA-K6-zIz"/>
                     </connections>
@@ -308,20 +360,23 @@
     <resources>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="logoOnly" width="279" height="279"/>
-        <image name="play" catalog="system" width="117" height="128"/>
+        <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="video" catalog="system" width="128" height="82"/>
         <namedColor name="BackGroundWhite">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="BoxGray">
+            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="LableBlack">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="NabTabGray">
-            <color red="0.31799998879432678" green="0.31799998879432678" blue="0.31799998879432678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TitleWhite">
             <color red="0.93300002813339233" green="0.93300002813339233" blue="0.93300002813339233" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
