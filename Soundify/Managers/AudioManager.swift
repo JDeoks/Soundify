@@ -41,5 +41,13 @@ class AudioManager {
             print("오디오 재생 중 오류가 발생했습니다: \(error.localizedDescription)")
         }
     }
+    
+    func pauseMusic() {
+        self.audioPlayer?.pause()
+    }
+    
+    func stopMusic() {
+        self.audioPlayer?.stop()
+    }
 }
 
