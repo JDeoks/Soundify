@@ -11,6 +11,7 @@
 		2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E162A7FD2110014F173 /* AudioManager.swift */; };
 		2A354E192A8002790014F173 /* UITextFieldExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E182A8002790014F173 /* UITextFieldExtention.swift */; };
 		2A354E1C2A8007420014F173 /* AudioFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E1B2A8007420014F173 /* AudioFormat.swift */; };
+		2A53DB582A8112C7004BCA79 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */; };
 		2AA101D72A7EAA9F00A88152 /* Video2AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */; };
 		2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */; };
 		2AB29B3E2A7E6C6900EC52B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3D2A7E6C6900EC52B2 /* SceneDelegate.swift */; };
@@ -25,6 +26,7 @@
 		2A354E162A7FD2110014F173 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		2A354E182A8002790014F173 /* UITextFieldExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtention.swift; sourceTree = "<group>"; };
 		2A354E1B2A8007420014F173 /* AudioFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFormat.swift; sourceTree = "<group>"; };
+		2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
 		2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2AudioViewController.swift; sourceTree = "<group>"; };
 		2AB29B382A7E6C6900EC52B2 /* Soundify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				2A354E1A2A8006BE0014F173 /* Enum */,
 				2A354E122A7FC7E30014F173 /* Extentions */,
 				2AB29B3D2A7E6C6900EC52B2 /* SceneDelegate.swift */,
+				2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */,
 				2A354E152A7FD1B20014F173 /* Managers */,
 				2AB29B512A7EA65100EC52B2 /* Controllers */,
 				2AB29B442A7E6C6B00EC52B2 /* Assets.xcassets */,
@@ -193,6 +196,7 @@
 				2A354E192A8002790014F173 /* UITextFieldExtention.swift in Sources */,
 				2AB29B3E2A7E6C6900EC52B2 /* SceneDelegate.swift in Sources */,
 				2A354E1C2A8007420014F173 /* AudioFormat.swift in Sources */,
+				2A53DB582A8112C7004BCA79 /* UIImageExtention.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

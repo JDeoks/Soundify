@@ -12,7 +12,7 @@ class AudioManager {
     static let shared = AudioManager()
     private init() { }
     
-    private var audioPlayer: AVAudioPlayer?
+    var audioPlayer: AVAudioPlayer?
     
     func playMusicByFileName(named fileName: String, withExtension fileExtension: String) {
         print("AudioManager - playMusicByFileName")
@@ -42,12 +42,49 @@ class AudioManager {
         }
     }
     
+    func registerAudioByURL(url: URL) {
+        print("AudioManager - registerAudioByURL")
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.prepareToPlay()
+            print("오디오 등록 성공")
+        } catch {
+            print("오디오 등록 중 오류가 발생했습니다: \(error.localizedDescription)")
+        }
+    }
+    
+    func playMusic() {
+        print("AudioManager - playMusic")
+        
+        if self.audioPlayer != nil {
+            self.audioPlayer!.play()
+        }
+        else {
+            print("audioPlayer = nil")
+        }
+    }
+    
     func pauseMusic() {
-        self.audioPlayer?.pause()
+        print("AudioManager - pauseMusic")
+        
+        if self.audioPlayer != nil {
+            self.audioPlayer!.pause()
+        }
+        else {
+            print("audioPlayer = nil")
+        }
     }
     
     func stopMusic() {
-        self.audioPlayer?.stop()
+        print("AudioManager - stopMusic")
+        
+        if self.audioPlayer != nil {
+            self.audioPlayer!.stop()
+        }
+        else {
+            print("audioPlayer = nil")
+        }
     }
 }
 

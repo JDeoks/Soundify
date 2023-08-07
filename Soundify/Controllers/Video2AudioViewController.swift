@@ -12,7 +12,7 @@ import AVKit
 class Video2AudioViewController: UIViewController {
     
     @IBOutlet var nameTextField: UITextField!
-    @IBOutlet var playButtonView: UIButton!
+    @IBOutlet var playButton: UIButton!
     @IBOutlet var formatPopupButton: UIButton!
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var exportButton: UIButton!
@@ -26,20 +26,25 @@ class Video2AudioViewController: UIViewController {
         print("Video2AudioViewController - viewDidLoad")
         
         initUI()
+        
         // 앱의 Document 디렉토리 경로를 가져옴
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             self.documentsDirectory = documentsDirectory
         } else {
             print("documentsDirectory 오류")
         }
+        // 팝업버튼 등록
         formatPopupButtonClicked()
+        // MARK: - delegate
         nameTextField.delegate = self
+//        AudioManager.shared.audioPlayer!.delegate = self
         
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
+        nameTextField.delegate = nil
+//        AudioManager.shared.audioPlayer?.delegate =  nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,14 +84,56 @@ class Video2AudioViewController: UIViewController {
     
     @IBAction func audioPlayButtonClicked(_ sender: Any) {
         print("Video2AudioViewController - audioPlayButtonClicked")
-            
+        
         // audioOutputURL이 nil인 경우 재생하지 않도록 확인
         guard let audioURL = audioOutputURL else {
             print("오디오 파일이 존재하지 않습니다.")
             return
         }
-        // 오디오 재생
-        AudioManager.shared.playMusicByURL(url: audioURL)
+        
+        // 재생 여부 토글 후 버튼이미지 변경
+        if AudioManager.shared.audioPlayer?.isPlaying == true {
+            AudioManager.shared.pauseMusic()
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
+            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
+            playButton.setImage(image, for: .normal)
+        }
+        else {
+            AudioManager.shared.playMusic()
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
+            let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
+            playButton.setImage(image, for: .normal)
+        }
+            
+
+    }
+    
+    @IBAction func backwardButtonClicked(_ sender: Any) {
+        print("Video2AudioViewController - backwardButtonClicked")
+
+        guard let audioPlayer = AudioManager.shared.audioPlayer else {
+            print("audioPlayer 없음")
+            return
+        }
+        let currentTime = audioPlayer.currentTime - 5.0
+        if currentTime > 0 {
+            audioPlayer.currentTime = currentTime
+        } else {
+            audioPlayer.currentTime = 0
+        }
+    }
+    
+    @IBAction func forwardButtonClicked(_ sender: Any) {
+        print("Video2AudioViewController - forwardButtonClicked")
+
+        guard let audioPlayer = AudioManager.shared.audioPlayer else {
+            print("audioPlayer 없음")
+            return
+        }
+        let currentTime = audioPlayer.currentTime + 5.0
+        if currentTime < audioPlayer.duration {
+            audioPlayer.currentTime = currentTime
+        }
     }
     
     @IBAction func ExportButtonClicked(_ sender: Any) {
@@ -155,6 +202,8 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
                 if success {
                     print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioOutputURL)) ")
                     // 재생 버튼 활성화 등 원하는 추가 작업 수행
+                    // 저장 완료 후 오디오 매니저에 음원 등록
+                    AudioManager.shared.registerAudioByURL(url: self.audioOutputURL!)
                 } else {
                     print("오디오 트랙 저장 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
                 }
@@ -166,7 +215,6 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
             } else {
                 print("썸네일 이미지를 추출할 수 없습니다.")
             }
-
         }
     }
     
@@ -206,9 +254,23 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
 
 }
 
+extension Video2AudioViewController: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("Video2AudioViewController - audioPlayerDidFinishPlaying")
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
+        let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
+        playButton.setImage(image, for: .normal)
+    }
+    
+}
+
 extension Video2AudioViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("Video2AudioViewController - textFieldShouldReturn")
+        
         textField.resignFirstResponder()
         return true
     }

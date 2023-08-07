@@ -237,7 +237,7 @@
                                 <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="xOW-62-PEF">
-                                <rect key="frame" x="24" y="139" width="342" height="564.66666666666663"/>
+                                <rect key="frame" x="24" y="139" width="342" height="577.33333333333337"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Nck-lI-eXM">
                                         <rect key="frame" x="0.0" y="0.0" width="342" height="112"/>
@@ -296,7 +296,7 @@
                                         <rect key="frame" x="0.0" y="160" width="342" height="156.33333333333337"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="waveform" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bOq-iE-TO3">
-                                                <rect key="frame" x="32" y="-3" width="278" height="162.33333333333331"/>
+                                                <rect key="frame" x="32" y="-3" width="278" height="162.33333333333334"/>
                                                 <color key="backgroundColor" name="BoxGray"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -308,7 +308,7 @@
                                         <edgeInsets key="layoutMargins" top="0.0" left="32" bottom="0.0" right="32"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Dih-LV-dyI">
-                                        <rect key="frame" x="0.0" y="364.33333333333331" width="342" height="103.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="364.33333333333331" width="342" height="116"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="EjT-1O-Ede">
                                                 <rect key="frame" x="-2" y="0.0" width="346" height="31"/>
@@ -316,51 +316,61 @@
                                                 <color key="maximumTrackTintColor" name="BoxGray"/>
                                                 <color key="thumbTintColor" name="BoxGray"/>
                                             </slider>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="bPQ-dx-ZJ7">
-                                                <rect key="frame" x="0.0" y="46.000000000000057" width="342" height="57.333333333333343"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="bPQ-dx-ZJ7">
+                                                <rect key="frame" x="0.0" y="46.000000000000057" width="342" height="70"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4j-Dt-7FV">
-                                                        <rect key="frame" x="48" y="8" width="55.333333333333343" height="41.333333333333336"/>
+                                                        <rect key="frame" x="48" y="17.666666666666629" width="55.333333333333343" height="35"/>
                                                         <color key="tintColor" name="LableBlack"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="gobackward.15" catalog="system">
+                                                        <state key="normal" image="gobackward.5" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="backwardButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="5ab-2E-v5u"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-54-ujk">
-                                                        <rect key="frame" x="143.33333333333334" y="8" width="55.333333333333343" height="41.333333333333336"/>
+                                                        <rect key="frame" x="143.33333333333334" y="11" width="55.333333333333343" height="48"/>
                                                         <color key="tintColor" name="LableBlack"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
-                                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="default"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="audioPlayButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="5zg-40-c1M"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smy-eH-P0y">
-                                                        <rect key="frame" x="238.66666666666671" y="8" width="55.333333333333343" height="41.333333333333336"/>
+                                                        <rect key="frame" x="238.66666666666671" y="17.666666666666629" width="55.333333333333343" height="35"/>
                                                         <color key="tintColor" name="LableBlack"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="goforward.15" catalog="system">
+                                                        <state key="normal" image="goforward.5" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="forwardButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="fhu-pr-UIE"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="JBm-q7-BRz"/>
+                                                </constraints>
                                                 <edgeInsets key="layoutMargins" top="8" left="48" bottom="8" right="48"/>
                                             </stackView>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0og-m4-Wop">
-                                        <rect key="frame" x="0.0" y="515.66666666666663" width="342" height="49"/>
+                                        <rect key="frame" x="0.0" y="528.33333333333337" width="342" height="49"/>
                                         <color key="backgroundColor" name="BoxGray"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="0og-m4-Wop" secondAttribute="height" multiplier="7:1" id="0i4-pk-sw1"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Export"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Export"/>
                                         <connections>
                                             <action selector="ExportButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="RFk-LU-Nsl"/>
                                         </connections>
@@ -389,7 +399,7 @@
                         <outlet property="exportButton" destination="0og-m4-Wop" id="Umk-07-5iS"/>
                         <outlet property="formatPopupButton" destination="jhc-ZL-tfY" id="EfA-Ex-Mxs"/>
                         <outlet property="nameTextField" destination="ea6-Ew-Oks" id="Yrl-t9-ErW"/>
-                        <outlet property="playButtonView" destination="zBw-54-ujk" id="suA-K6-zIz"/>
+                        <outlet property="playButton" destination="zBw-54-ujk" id="suA-K6-zIz"/>
                         <outlet property="thumbnailImageView" destination="bOq-iE-TO3" id="yfR-mi-kNn"/>
                     </connections>
                 </viewController>
@@ -418,15 +428,15 @@
     </scenes>
     <resources>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
-        <image name="gobackward.15" catalog="system" width="119" height="128"/>
-        <image name="goforward.15" catalog="system" width="119" height="128"/>
+        <image name="gobackward.5" catalog="system" width="119" height="128"/>
+        <image name="goforward.5" catalog="system" width="119" height="128"/>
         <image name="logoOnly" width="279" height="279"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="video" catalog="system" width="128" height="82"/>
         <image name="waveform" catalog="system" width="125" height="128"/>
         <namedColor name="BackGroundWhite">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BoxGray">
             <color red="0.81568627450980391" green="0.81568627450980391" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
