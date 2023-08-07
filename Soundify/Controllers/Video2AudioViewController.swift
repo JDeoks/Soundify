@@ -16,6 +16,7 @@ class Video2AudioViewController: UIViewController {
     @IBOutlet var formatPopupButton: UIButton!
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var exportButton: UIButton!
+    @IBOutlet var audioProgressUISlider: UISlider!
     
     var videoURL: URL? = nil
     var audioOutputURL: URL? = nil
@@ -38,6 +39,9 @@ class Video2AudioViewController: UIViewController {
         // MARK: - delegate
         nameTextField.delegate = self
 //        AudioManager.shared.audioPlayer!.delegate = self
+        
+        // 0.1초 마다 updateAudioProgressUISlider 호출해서 audioProgressUISlider.value 업데이트
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateAudioProgressUISlider), userInfo: nil, repeats: true)
         
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
@@ -82,6 +86,30 @@ class Video2AudioViewController: UIViewController {
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
     
+    // 슬라이더 이동시 호출
+    @IBAction func audioProgressSliderChanged(_ sender: Any) {
+        print("Video2AudioViewController - audioProgressSliderChanged")
+
+        if let audioPlayer = AudioManager.shared.audioPlayer {
+            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
+            self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
+            
+            if audioPlayer.isPlaying {
+                AudioManager.shared.pauseMusic()
+                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
+                print(audioPlayer.currentTime)
+                AudioManager.shared.playMusic()
+            }
+            else {
+                print(audioPlayer.currentTime)
+                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
+            }
+        }
+        else {
+            print("audioPlayer = nil")
+        }
+    }
+    
     @IBAction func audioPlayButtonClicked(_ sender: Any) {
         print("Video2AudioViewController - audioPlayButtonClicked")
         
@@ -100,6 +128,10 @@ class Video2AudioViewController: UIViewController {
         }
         else {
             AudioManager.shared.playMusic()
+            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
+            if let audioPlayer = AudioManager.shared.audioPlayer {
+                self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
+            }
             let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
             let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
             playButton.setImage(image, for: .normal)
@@ -166,6 +198,12 @@ class Video2AudioViewController: UIViewController {
             }
         }
     }
+    
+    // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
+    @objc func updateAudioProgressUISlider() {
+        audioProgressUISlider.value = Float(AudioManager.shared.audioPlayer?.currentTime ?? 0)
+    }
+    
 }
 
 extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

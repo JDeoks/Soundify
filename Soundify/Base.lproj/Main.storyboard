@@ -315,6 +315,9 @@
                                                 <color key="tintColor" name="NabTabGray"/>
                                                 <color key="maximumTrackTintColor" name="BoxGray"/>
                                                 <color key="thumbTintColor" name="BoxGray"/>
+                                                <connections>
+                                                    <action selector="audioProgressSliderChanged:" destination="qua-aa-1pY" eventType="valueChanged" id="XUB-zg-TkC"/>
+                                                </connections>
                                             </slider>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="bPQ-dx-ZJ7">
                                                 <rect key="frame" x="0.0" y="46.000000000000057" width="342" height="70"/>
@@ -396,6 +399,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="audioProgressUISlider" destination="EjT-1O-Ede" id="gRt-6I-yVV"/>
                         <outlet property="exportButton" destination="0og-m4-Wop" id="Umk-07-5iS"/>
                         <outlet property="formatPopupButton" destination="jhc-ZL-tfY" id="EfA-Ex-Mxs"/>
                         <outlet property="nameTextField" destination="ea6-Ew-Oks" id="Yrl-t9-ErW"/>
