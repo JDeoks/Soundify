@@ -14,6 +14,8 @@ class Video2AudioViewController: UIViewController {
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var playButtonView: UIButton!
     @IBOutlet var formatPopupButton: UIButton!
+    @IBOutlet var thumbnailImageView: UIImageView!
+    @IBOutlet var exportButton: UIButton!
     
     var videoURL: URL? = nil
     var audioOutputURL: URL? = nil
@@ -48,6 +50,8 @@ class Video2AudioViewController: UIViewController {
         nameTextField.addLeftAndRightPadding(size: 10)
         nameTextField.layer.cornerRadius = 8
         formatPopupButton.layer.cornerRadius = 8
+        exportButton.layer.cornerRadius = 8
+        thumbnailImageView.layer.cornerRadius = 8
     }
 
     @IBAction func backButtonClicked(_ sender: Any) {
@@ -69,6 +73,7 @@ class Video2AudioViewController: UIViewController {
     }
     
     @IBAction func addButtonClicked(_ sender: Any) {
+        AudioManager.shared.stopMusic()
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
     
