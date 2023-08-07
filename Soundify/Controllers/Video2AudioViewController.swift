@@ -100,7 +100,7 @@ class Video2AudioViewController: UIViewController {
         // 오디오 파일을 저장할 URL 생성
         self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
         // 중복 삭제
-        deleteDuplicateFile(url: audioOutputURL!)
+        deleteFileByURL(url: audioOutputURL!)
         
         let asset = AVAsset(url: videoURL!)
         // AVAsset에서 오디오 트랙을 분리하고 .m4a 오디오 파일로 저장
@@ -149,7 +149,7 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
             // 오디오 파일을 저장할 URL 생성
             self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
             // 중복 삭제
-            deleteDuplicateFile(url: audioOutputURL!)
+            deleteFileByURL(url: audioOutputURL!)
             // AVAsset에서 오디오 트랙을 분리하고 .m4a 오디오 파일로 저장
             asset.writeAudioTrackToURL(self.audioOutputURL!) { (success, error) in
                 if success {
@@ -159,11 +159,37 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
                     print("오디오 트랙 저장 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
                 }
             }
+            // 비디오의 썸네일 이미지를 추출하여 이미지 뷰에 표시
+            if let thumbnailImage = getThumbnailImage(for: videoURL!) {
+                thumbnailImageView.contentMode = .scaleAspectFill
+                thumbnailImageView.image = thumbnailImage
+            } else {
+                print("썸네일 이미지를 추출할 수 없습니다.")
+            }
 
         }
     }
     
-    func deleteDuplicateFile(url: URL) {
+    func getThumbnailImage(for videoURL: URL) -> UIImage? {
+        let asset = AVAsset(url: videoURL)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+
+        // 비디오의 첫 번째 프레임의 이미지를 추출하도록 설정
+        imageGenerator.appliesPreferredTrackTransform = true
+        let time = CMTime(seconds: 0.0, preferredTimescale: 600)
+
+        do {
+            // 썸네일 이미지를 추출
+            let thumbnailCGImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            // CGImage를 UIImage로 변환하여 반환
+            return UIImage(cgImage: thumbnailCGImage)
+        } catch {
+            print("썸네일 이미지를 추출하는 동안 오류가 발생했습니다: \\(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    func deleteFileByURL(url: URL) {
         print("Video2AudioViewController - deleteDuplicateFile")
 
         // 중복 체크해서 이미 있으면 파일 삭제
@@ -177,16 +203,7 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
             }
         }
     }
-    
-    func playVideo(with videoURL: URL) {
-        let player = AVPlayer(url: videoURL)
-        let playerVC = AVPlayerViewController()
-        playerVC.player = player
-        present(playerVC, animated: true) {
-            player.play()
-        }
-    }
- 
+
 }
 
 extension Video2AudioViewController: UITextFieldDelegate {
