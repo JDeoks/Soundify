@@ -47,12 +47,13 @@ class Video2AudioViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        nameTextField.delegate = nil
-//        AudioManager.shared.audioPlayer?.delegate =  nil
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         AudioManager.shared.stopMusic()
+        nameTextField.delegate = nil
+//        AudioManager.shared.audioPlayer?.delegate =  nil
     }
     
     func initUI() {
@@ -172,10 +173,11 @@ class Video2AudioViewController: UIViewController {
         print("Video2AudioViewController - ExportButtonClicked")
         
         // audioOutputURL이 nil인 경우 공유할 파일이 없으므로 리턴
-        guard let audioURL = audioOutputURL else {
+        if audioOutputURL == nil {
             print("공유할 오디오 파일이 없습니다.")
             return
         }
+        
         // 오디오 파일을 저장할 URL 생성
         self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
         // 중복 삭제
@@ -188,8 +190,8 @@ class Video2AudioViewController: UIViewController {
             if success {
                 print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioOutputURL)) ")
                 // 저장 완료 후 공유 (메인 스레드에서 실행)
-                DispatchQueue.main.async {
-                    let activityViewController = UIActivityViewController(activityItems: [audioURL], applicationActivities: nil)
+                DispatchQueue.main.sync {
+                    let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
                     self.present(activityViewController, animated: true, completion: nil)
                 }
 
