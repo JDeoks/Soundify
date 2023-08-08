@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import AVKit
+import AudioKit
 
 class Video2AudioViewController: UIViewController {
     
@@ -19,15 +20,19 @@ class Video2AudioViewController: UIViewController {
     @IBOutlet var audioProgressUISlider: UISlider!
     
     var videoURL: URL? = nil
+    /// 받은 동영상에서 바꾼 m4a
+    var audioInputURL: URL? = nil
+    /// 선택한 확장자로 바꾼 오디오. export 할때 사용
     var audioOutputURL: URL? = nil
-    var documentsDirectory: URL!
+    var selectedFormat: String = "m4a"
     
+    var documentsDirectory: URL!
+    // MARK: - LifeCycles
     override func viewDidLoad() {
-        super.viewDidLoad()
         print("Video2AudioViewController - viewDidLoad")
         
+        super.viewDidLoad()
         initUI()
-        
         // 앱의 Document 디렉토리 경로를 가져옴
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             self.documentsDirectory = documentsDirectory
@@ -36,7 +41,6 @@ class Video2AudioViewController: UIViewController {
         }
         // 팝업버튼 등록
         formatPopupButtonClicked()
-        // MARK: - delegate
         nameTextField.delegate = self
 //        AudioManager.shared.audioPlayer!.delegate = self
         
@@ -62,20 +66,35 @@ class Video2AudioViewController: UIViewController {
         formatPopupButton.layer.cornerRadius = 8
         exportButton.layer.cornerRadius = 8
         thumbnailImageView.layer.cornerRadius = 8
+        nameTextField.text = "\(Date())"
     }
 
     @IBAction func backButtonClicked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - IBAction
+    
     /// 팝업버튼 등록
     func formatPopupButtonClicked() {
+        print("Video2AudioViewController - viewDidLoad")
+
         let optionClosure = {(action : UIAction) in
-            print (action.title)
+            switch action.title {
+            case ".m4a" :
+                self.selectedFormat = "m4a"
+            case ".mp3" :
+                self.selectedFormat = "mp3"
+            case ".wav" :
+                self.selectedFormat = "wav"
+            default:
+                self.selectedFormat = "m4a"
+            }
+            print ("포맷 변경: \(self.selectedFormat)")
         }
         formatPopupButton.menu = UIMenu (children : [
             UIAction(title : ".m4a", state : .on, handler: optionClosure),
-            UIAction(title : ".mp3", handler: optionClosure),
+//            UIAction(title : ".mp3", handler: optionClosure),
             UIAction (title : ".wav", handler: optionClosure)
         ])
         formatPopupButton.showsMenuAsPrimaryAction = true
@@ -87,19 +106,17 @@ class Video2AudioViewController: UIViewController {
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
     
-    // 슬라이더 이동시 호출
-    @IBAction func audioProgressSliderChanged(_ sender: Any) {
-        print("Video2AudioViewController - audioProgressSliderChanged")
-
+    @IBAction func audioProgressSliderTouchUp(_ sender: Any) {
+        print("Video2AudioViewController - audioProgressSliderTouchUp")
         if let audioPlayer = AudioManager.shared.audioPlayer {
             // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
             self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
             
             if audioPlayer.isPlaying {
-                AudioManager.shared.pauseMusic()
+//                AudioManager.shared.pauseMusic()
                 audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
                 print(audioPlayer.currentTime)
-                AudioManager.shared.playMusic()
+//                AudioManager.shared.playMusic()
             }
             else {
                 print(audioPlayer.currentTime)
@@ -111,11 +128,35 @@ class Video2AudioViewController: UIViewController {
         }
     }
     
+    // 슬라이더 이동시 호출
+    @IBAction func audioProgressSliderChanged(_ sender: Any) {
+        print("Video2AudioViewController - audioProgressSliderChanged")
+//
+//        if let audioPlayer = AudioManager.shared.audioPlayer {
+//            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
+//            self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
+//
+//            if audioPlayer.isPlaying {
+////                AudioManager.shared.pauseMusic()
+//                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
+//                print(audioPlayer.currentTime)
+////                AudioManager.shared.playMusic()
+//            }
+//            else {
+//                print(audioPlayer.currentTime)
+//                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
+//            }
+//        }
+//        else {
+//            print("audioPlayer = nil")
+//        }
+    }
+    
     @IBAction func audioPlayButtonClicked(_ sender: Any) {
         print("Video2AudioViewController - audioPlayButtonClicked")
         
         // audioOutputURL이 nil인 경우 재생하지 않도록 확인
-        guard let audioURL = audioOutputURL else {
+        guard let audioURL = audioInputURL else {
             print("오디오 파일이 존재하지 않습니다.")
             return
         }
@@ -173,32 +214,38 @@ class Video2AudioViewController: UIViewController {
         print("Video2AudioViewController - ExportButtonClicked")
         
         // audioOutputURL이 nil인 경우 공유할 파일이 없으므로 리턴
-        if audioOutputURL == nil {
+        if audioInputURL == nil {
             print("공유할 오디오 파일이 없습니다.")
             return
         }
-        
+        print("인풋\(audioInputURL)")
         // 오디오 파일을 저장할 URL 생성
-        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
+//        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).\(self.selectedFormat)")
+        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).wav").deletingPathExtension().appendingPathExtension("wav")
+        print("아웃풋\(audioOutputURL)")
         // 중복 삭제
-        deleteFileByURL(url: audioOutputURL!)
+//        deleteFileByURL(url: audioInputURL!)
         
-        let asset = AVAsset(url: videoURL!)
-        // AVAsset에서 오디오 트랙을 분리하고 .m4a 오디오 파일로 저장
-        // TODO: 비동기 처리 잘 안됨
-        asset.writeAudioTrackToURL(self.audioOutputURL!) { (success, error) in
-            if success {
-                print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioOutputURL)) ")
-                // 저장 완료 후 공유 (메인 스레드에서 실행)
-                DispatchQueue.main.sync {
-                    let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
-                    self.present(activityViewController, animated: true, completion: nil)
-                }
-
+        // 컨버터 옵션 설정
+        var options = FormatConverter.Options()
+//        options.format = AudioFileFormat(rawValue: selectedFormat)
+        options.format = .wav
+        options.sampleRate = 48000
+        options.bitDepth = 24
+        print(options)
+        // 컨버터 설정&실행
+        let converter = FormatConverter(inputURL: audioInputURL!, outputURL: audioOutputURL!, options: options)
+        converter.start { error in
+            if error == nil {
+                print("Video2AudioViewController - ExportButtonClicked - 컨버터 성공\(self.audioOutputURL)")
+                let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
+                self.present(activityViewController, animated: true, completion: nil)
             } else {
-                print("오디오 트랙 저장 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
+                print("Video2AudioViewController - ExportButtonClicked - 컨버터 오류")
+                print(error)
             }
         }
+        
     }
     
     // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
@@ -223,6 +270,8 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
     
     // 이미지 피커 컨트롤러에서 이미지나 동영상을 선택한 후 호출되는 델리게이트 메서드
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("Video2AudioViewController - imagePickerController(didFinishPickingMediaWithInfo)")
+
         picker.dismiss(animated: true, completion: nil)
         
         // 선택된 미디어의 유형을 확인
@@ -232,18 +281,19 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
             // 선택한 동영상 URL을 사용하여 추가적인 처리를 수행
             // 뷰컨트롤러에 비디오 URL 저장
             self.videoURL = url
+            print("비디오 url\(videoURL)")
             let asset = AVAsset(url: url)
             // 오디오 파일을 저장할 URL 생성
-            self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
+            self.audioInputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
             // 중복 삭제
-            deleteFileByURL(url: audioOutputURL!)
+            deleteFileByURL(url: audioInputURL!)
             // AVAsset에서 오디오 트랙을 분리하고 .m4a 오디오 파일로 저장
-            asset.writeAudioTrackToURL(self.audioOutputURL!) { (success, error) in
+            asset.writeAudioTrackToURL(self.audioInputURL!) { (success, error) in
                 if success {
-                    print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioOutputURL)) ")
+                    print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioInputURL)) ")
                     // 재생 버튼 활성화 등 원하는 추가 작업 수행
                     // 저장 완료 후 오디오 매니저에 음원 등록
-                    AudioManager.shared.registerAudioByURL(url: self.audioOutputURL!)
+                    AudioManager.shared.registerAudioByURL(url: self.audioInputURL!)
                 } else {
                     print("오디오 트랙 저장 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
                 }
@@ -303,7 +353,6 @@ extension Video2AudioViewController: AVAudioPlayerDelegate {
         let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
         playButton.setImage(image, for: .normal)
     }
-    
 }
 
 extension Video2AudioViewController: UITextFieldDelegate {

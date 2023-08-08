@@ -12,6 +12,7 @@
 		2A354E192A8002790014F173 /* UITextFieldExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E182A8002790014F173 /* UITextFieldExtention.swift */; };
 		2A354E1C2A8007420014F173 /* AudioFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E1B2A8007420014F173 /* AudioFormat.swift */; };
 		2A53DB582A8112C7004BCA79 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */; };
+		2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A53DB5A2A829CD5004BCA79 /* AudioKit */; };
 		2AA101D72A7EAA9F00A88152 /* Video2AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */; };
 		2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */; };
 		2AB29B3E2A7E6C6900EC52B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3D2A7E6C6900EC52B2 /* SceneDelegate.swift */; };
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +135,9 @@
 			dependencies = (
 			);
 			name = Soundify;
+			packageProductDependencies = (
+				2A53DB5A2A829CD5004BCA79 /* AudioKit */,
+			);
 			productName = Soundify;
 			productReference = 2AB29B382A7E6C6900EC52B2 /* Soundify.app */;
 			productType = "com.apple.product-type.application";
@@ -161,6 +166,9 @@
 				Base,
 			);
 			mainGroup = 2AB29B2F2A7E6C6900EC52B2;
+			packageReferences = (
+				2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = 2AB29B392A7E6C6900EC52B2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -359,9 +367,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Deok.Soundify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -388,9 +399,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Deok.Soundify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -416,6 +430,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A53DB5A2A829CD5004BCA79 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2AB29B302A7E6C6900EC52B2 /* Project object */;
 }
