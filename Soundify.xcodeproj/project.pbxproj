@@ -13,6 +13,8 @@
 		2A354E1C2A8007420014F173 /* AudioFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E1B2A8007420014F173 /* AudioFormat.swift */; };
 		2A53DB582A8112C7004BCA79 /* UIImageExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */; };
 		2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A53DB5A2A829CD5004BCA79 /* AudioKit */; };
+		2A53DB812A82C445004BCA79 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 2A53DB802A82C445004BCA79 /* SwiftDate */; };
+		2A53DB832A82C4BA004BCA79 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53DB822A82C4BA004BCA79 /* DateManager.swift */; };
 		2AA101D72A7EAA9F00A88152 /* Video2AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */; };
 		2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */; };
 		2AB29B3E2A7E6C6900EC52B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3D2A7E6C6900EC52B2 /* SceneDelegate.swift */; };
@@ -28,6 +30,7 @@
 		2A354E182A8002790014F173 /* UITextFieldExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtention.swift; sourceTree = "<group>"; };
 		2A354E1B2A8007420014F173 /* AudioFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFormat.swift; sourceTree = "<group>"; };
 		2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
+		2A53DB822A82C4BA004BCA79 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2AudioViewController.swift; sourceTree = "<group>"; };
 		2AB29B382A7E6C6900EC52B2 /* Soundify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A53DB812A82C445004BCA79 /* SwiftDate in Frameworks */,
 				2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				2A354E162A7FD2110014F173 /* AudioManager.swift */,
+				2A53DB822A82C4BA004BCA79 /* DateManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 			name = Soundify;
 			packageProductDependencies = (
 				2A53DB5A2A829CD5004BCA79 /* AudioKit */,
+				2A53DB802A82C445004BCA79 /* SwiftDate */,
 			);
 			productName = Soundify;
 			productReference = 2AB29B382A7E6C6900EC52B2 /* Soundify.app */;
@@ -168,6 +174,7 @@
 			mainGroup = 2AB29B2F2A7E6C6900EC52B2;
 			packageReferences = (
 				2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				2A53DB7F2A82C445004BCA79 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 			);
 			productRefGroup = 2AB29B392A7E6C6900EC52B2 /* Products */;
 			projectDirPath = "";
@@ -197,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */,
+				2A53DB832A82C4BA004BCA79 /* DateManager.swift in Sources */,
 				2AA101D72A7EAA9F00A88152 /* Video2AudioViewController.swift in Sources */,
 				2AB29B402A7E6C6900EC52B2 /* ViewController.swift in Sources */,
 				2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */,
@@ -440,6 +448,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		2A53DB7F2A82C445004BCA79 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -447,6 +463,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */;
 			productName = AudioKit;
+		};
+		2A53DB802A82C445004BCA79 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A53DB7F2A82C445004BCA79 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

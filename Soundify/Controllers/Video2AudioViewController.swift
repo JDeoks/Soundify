@@ -66,7 +66,7 @@ class Video2AudioViewController: UIViewController {
         formatPopupButton.layer.cornerRadius = 8
         exportButton.layer.cornerRadius = 8
         thumbnailImageView.layer.cornerRadius = 8
-        nameTextField.text = "\(Date())"
+        nameTextField.text = "\(DateManager.shared.getCurrentLocalizedDateTimeString())"
     }
 
     @IBAction func backButtonClicked(_ sender: Any) {
@@ -218,11 +218,9 @@ class Video2AudioViewController: UIViewController {
             print("공유할 오디오 파일이 없습니다.")
             return
         }
-        print("인풋\(audioInputURL)")
+
         // 오디오 파일을 저장할 URL 생성
-//        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).\(self.selectedFormat)")
         self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!)").appendingPathExtension(selectedFormat)
-        print("아웃풋\(audioOutputURL)")
         if audioInputURL == audioOutputURL {
             print("Video2AudioViewController - ExportButtonClicked - 두 확장자 같아서 바로 반환\(self.audioOutputURL)")
             let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
@@ -232,7 +230,6 @@ class Video2AudioViewController: UIViewController {
         
         // 컨버터 옵션 설정
         var options = FormatConverter.Options()
-//        options.format = AudioFileFormat(rawValue: selectedFormat)
         switch selectedFormat {
         case "m4a":
             options.format = .m4a
@@ -243,7 +240,7 @@ class Video2AudioViewController: UIViewController {
         }
         options.sampleRate = 48000
         options.bitDepth = 24
-        print(options)
+        
         // 컨버터 설정&실행
         let converter = FormatConverter(inputURL: audioInputURL!, outputURL: audioOutputURL!, options: options)
         converter.start { error in
