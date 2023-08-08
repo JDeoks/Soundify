@@ -221,15 +221,26 @@ class Video2AudioViewController: UIViewController {
         print("인풋\(audioInputURL)")
         // 오디오 파일을 저장할 URL 생성
 //        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).\(self.selectedFormat)")
-        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).wav").deletingPathExtension().appendingPathExtension("wav")
+        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!)").appendingPathExtension(selectedFormat)
         print("아웃풋\(audioOutputURL)")
-        // 중복 삭제
-//        deleteFileByURL(url: audioInputURL!)
+        if audioInputURL == audioOutputURL {
+            print("Video2AudioViewController - ExportButtonClicked - 두 확장자 같아서 바로 반환\(self.audioOutputURL)")
+            let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
+            self.present(activityViewController, animated: true, completion: nil)
+            return
+        }
         
         // 컨버터 옵션 설정
         var options = FormatConverter.Options()
 //        options.format = AudioFileFormat(rawValue: selectedFormat)
-        options.format = .wav
+        switch selectedFormat {
+        case "m4a":
+            options.format = .m4a
+        case "wav":
+            options.format = .wav
+        default:
+            options.format = .m4a
+        }
         options.sampleRate = 48000
         options.bitDepth = 24
         print(options)
