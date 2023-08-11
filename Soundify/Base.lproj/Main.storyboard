@@ -316,7 +316,8 @@
                                                 <color key="thumbTintColor" name="BoxGray"/>
                                                 <connections>
                                                     <action selector="audioProgressSliderChanged:" destination="qua-aa-1pY" eventType="valueChanged" id="XUB-zg-TkC"/>
-                                                    <action selector="audioProgressSliderTouchUp:" destination="qua-aa-1pY" eventType="touchUpInside" id="eJ5-dq-BSy"/>
+                                                    <action selector="audioProgressSliderTouchUpInside:" destination="qua-aa-1pY" eventType="touchUpInside" id="eJ5-dq-BSy"/>
+                                                    <action selector="audioProgressSliderTouchUpOutside:" destination="qua-aa-1pY" eventType="touchUpOutside" id="DmI-PQ-Rhd"/>
                                                 </connections>
                                             </slider>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="bPQ-dx-ZJ7">

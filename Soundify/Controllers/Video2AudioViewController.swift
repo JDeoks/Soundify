@@ -106,8 +106,8 @@ class Video2AudioViewController: UIViewController {
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
     
-    @IBAction func audioProgressSliderTouchUp(_ sender: Any) {
-        print("Video2AudioViewController - audioProgressSliderTouchUp")
+    @IBAction func audioProgressSliderTouchUpInside(_ sender: Any) {
+        print("Video2AudioViewController - audioProgressSliderTouchUpInside")
         if let audioPlayer = AudioManager.shared.audioPlayer {
             // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
             self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
@@ -127,6 +127,29 @@ class Video2AudioViewController: UIViewController {
             print("audioPlayer = nil")
         }
     }
+    
+    @IBAction func audioProgressSliderTouchUpOutside(_ sender: Any) {
+        print("Video2AudioViewController - audioProgressSliderTouchUpOutside")
+        if let audioPlayer = AudioManager.shared.audioPlayer {
+            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
+            self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
+            
+            if audioPlayer.isPlaying {
+//                AudioManager.shared.pauseMusic()
+                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
+                print(audioPlayer.currentTime)
+//                AudioManager.shared.playMusic()
+            }
+            else {
+                print(audioPlayer.currentTime)
+                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
+            }
+        }
+        else {
+            print("audioPlayer = nil")
+        }
+    }
+    
     
     // 슬라이더 이동시 호출
     @IBAction func audioProgressSliderChanged(_ sender: Any) {
