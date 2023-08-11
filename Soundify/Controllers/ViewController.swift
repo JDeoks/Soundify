@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(Locale.current.identifier)
+        print(TimeZone.current.identifier)
         initUI()
         // Do any additional setup after loading the view.
         let video2AudioTabGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(video2AudioClicked(_:)))

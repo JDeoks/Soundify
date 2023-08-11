@@ -31,6 +31,8 @@
 		2A354E1B2A8007420014F173 /* AudioFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFormat.swift; sourceTree = "<group>"; };
 		2A53DB572A8112C7004BCA79 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
 		2A53DB822A82C4BA004BCA79 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
+		2A53DBA62A86562F004BCA79 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		2A53DBA72A86562F004BCA79 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2AudioViewController.swift; sourceTree = "<group>"; };
 		2AB29B382A7E6C6900EC52B2 /* Soundify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,11 +167,12 @@
 			};
 			buildConfigurationList = 2AB29B332A7E6C6900EC52B2 /* Build configuration list for PBXProject "Soundify" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 2AB29B2F2A7E6C6900EC52B2;
 			packageReferences = (
@@ -223,6 +226,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2AB29B422A7E6C6900EC52B2 /* Base */,
+				2A53DBA62A86562F004BCA79 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -231,6 +235,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2AB29B472A7E6C6B00EC52B2 /* Base */,
+				2A53DBA72A86562F004BCA79 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -302,6 +308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
