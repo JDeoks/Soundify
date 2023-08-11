@@ -284,6 +284,11 @@ class Video2AudioViewController: UIViewController {
         audioProgressUISlider.value = Float(AudioManager.shared.audioPlayer?.currentTime ?? 0)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        print("Video2AudioViewController - touchesBegan")
+         self.view.endEditing(true)
+   }
+    
 }
 
 extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
