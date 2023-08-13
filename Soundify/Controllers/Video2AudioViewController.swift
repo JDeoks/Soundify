@@ -187,7 +187,7 @@ class Video2AudioViewController: UIViewController {
         // 재생 여부 토글 후 버튼이미지 변경
         if AudioManager.shared.audioPlayer?.isPlaying == true {
             AudioManager.shared.pauseMusic()
-            let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
             let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
             playButton.setImage(image, for: .normal)
         }
@@ -197,7 +197,7 @@ class Video2AudioViewController: UIViewController {
             if let audioPlayer = AudioManager.shared.audioPlayer {
                 self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
             }
-            let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
             let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
             playButton.setImage(image, for: .normal)
         }
@@ -266,17 +266,20 @@ class Video2AudioViewController: UIViewController {
         
         // 컨버터 설정&실행
         let converter = FormatConverter(inputURL: audioInputURL!, outputURL: audioOutputURL!, options: options)
-        converter.start { error in
-            if error == nil {
-                print("Video2AudioViewController - ExportButtonClicked - 컨버터 성공\(self.audioOutputURL)")
-                let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
-                self.present(activityViewController, animated: true, completion: nil)
-            } else {
-                print("Video2AudioViewController - ExportButtonClicked - 컨버터 오류")
-                print(error)
+        DispatchQueue.global().async {
+            converter.start { error in
+                if error == nil {
+                    DispatchQueue.main.sync{
+                        print("Video2AudioViewController - ExportButtonClicked - 컨버터 성공\(self.audioOutputURL)")
+                        let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
+                        self.present(activityViewController, animated: true, completion: nil)
+                    }
+                } else {
+                    print("Video2AudioViewController - ExportButtonClicked - 컨버터 오류")
+                    print(error)
+                }
             }
         }
-        
     }
     
     // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
