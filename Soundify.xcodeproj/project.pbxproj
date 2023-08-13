@@ -369,7 +369,7 @@
 				DEVELOPMENT_TEAM = 39JATSZXJT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Soundify/Info.plist;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "앱에서 사진, 동영상에 접근하기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "App requires access to photos and videos, no data will be sent to the server.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -402,7 +402,7 @@
 				DEVELOPMENT_TEAM = 39JATSZXJT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Soundify/Info.plist;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "앱에서 사진, 동영상에 접근하기 위해 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "App requires access to photos and videos, no data will be sent to the server.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
