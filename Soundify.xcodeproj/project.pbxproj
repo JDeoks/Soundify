@@ -22,6 +22,7 @@
 		2AB29B432A7E6C6900EC52B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AB29B412A7E6C6900EC52B2 /* Main.storyboard */; };
 		2AB29B452A7E6C6B00EC52B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AB29B442A7E6C6B00EC52B2 /* Assets.xcassets */; };
 		2AB29B482A7E6C6B00EC52B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2AB29B462A7E6C6B00EC52B2 /* LaunchScreen.storyboard */; };
+		2ACCC3E02AB87A49009FAB7A /* Video2GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACCC3DF2AB87A49009FAB7A /* Video2GifViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		2AB29B442A7E6C6B00EC52B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2AB29B472A7E6C6B00EC52B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2AB29B492A7E6C6B00EC52B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2ACCC3DF2AB87A49009FAB7A /* Video2GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video2GifViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				2AB29B3F2A7E6C6900EC52B2 /* ViewController.swift */,
 				2AA101D62A7EAA9F00A88152 /* Video2AudioViewController.swift */,
+				2ACCC3DF2AB87A49009FAB7A /* Video2GifViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				2A53DB832A82C4BA004BCA79 /* DateManager.swift in Sources */,
 				2AA101D72A7EAA9F00A88152 /* Video2AudioViewController.swift in Sources */,
 				2AB29B402A7E6C6900EC52B2 /* ViewController.swift in Sources */,
+				2ACCC3E02AB87A49009FAB7A /* Video2GifViewController.swift in Sources */,
 				2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */,
 				2A354E142A7FC8170014F173 /* AVAssetExtension.swift in Sources */,
 				2A354E192A8002790014F173 /* UITextFieldExtention.swift in Sources */,

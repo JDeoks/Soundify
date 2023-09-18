@@ -12,6 +12,7 @@ import AVKit
 class ViewController: UIViewController {
 
     @IBOutlet var video2AudioView: UIView!
+    @IBOutlet var video2GifView: UIView!
     
     
     
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
     
     func initUI() {
         video2AudioView.layer.cornerRadius = 16
+        video2GifView.layer.cornerRadius = 12
         self.navigationController?.navigationBar.isHidden = true
     }
     
@@ -36,6 +38,11 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(v2a, animated: true)
     }
     
+    @objc func video2GifClicked(_ gesture: UITapGestureRecognizer) {
+        print("ViewController - video2GifClicked")
+        let v2a = self.storyboard?.instantiateViewController(identifier: "Video2AudioViewController") as! Video2AudioViewController
+        self.navigationController?.pushViewController(v2a, animated: true)
+    }
 
 }
 
