@@ -15,7 +15,7 @@ class AudioManager {
     var audioPlayer: AVAudioPlayer?
     
     func playMusicByFileName(named fileName: String, withExtension fileExtension: String) {
-        print("AudioManager - playMusicByFileName")
+        print("\(type(of: self)) - \(#function)")
 
         guard let url = Bundle.main.url(forResource: fileName, withExtension: fileExtension) else {
             print("오디오 파일을 찾을 수 없습니다.")
@@ -31,8 +31,8 @@ class AudioManager {
     }
     
     func playMusicByURL(url: URL) {
-        print("AudioManager - playMusicByURL")
-        
+        print("\(type(of: self)) - \(#function)")
+
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.prepareToPlay()
@@ -43,7 +43,7 @@ class AudioManager {
     }
     
     func registerAudioByURL(url: URL) {
-        print("AudioManager - registerAudioByURL")
+        print("\(type(of: self)) - \(#function)")
 
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -55,8 +55,8 @@ class AudioManager {
     }
     
     func playMusic() {
-        print("AudioManager - playMusic")
-        
+        print("\(type(of: self)) - \(#function)")
+
         if self.audioPlayer != nil {
             self.audioPlayer!.play()
         }
@@ -66,8 +66,8 @@ class AudioManager {
     }
     
     func pauseMusic() {
-        print("AudioManager - pauseMusic")
-        
+        print("\(type(of: self)) - \(#function)")
+
         if self.audioPlayer != nil {
             self.audioPlayer!.pause()
         }
@@ -77,8 +77,8 @@ class AudioManager {
     }
     
     func stopMusic() {
-        print("AudioManager - stopMusic")
-        
+        print("\(type(of: self)) - \(#function)")
+
         if self.audioPlayer != nil {
             self.audioPlayer!.stop()
         }

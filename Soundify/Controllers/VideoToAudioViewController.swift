@@ -10,7 +10,7 @@ import AVFoundation
 import AVKit
 import AudioKit
 
-class Video2AudioViewController: UIViewController {
+class VideoToAudioViewController: UIViewController {
     
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var playButton: UIButton!
@@ -27,11 +27,12 @@ class Video2AudioViewController: UIViewController {
     var selectedFormat: String = "m4a"
     
     var documentsDirectory: URL!
+    
     // MARK: - LifeCycles
     override func viewDidLoad() {
-        print("Video2AudioViewController - viewDidLoad")
-        
         super.viewDidLoad()
+        print("\(type(of: self)) - \(#function)")
+
         initUI()
         // 앱의 Document 디렉토리 경로를 가져옴
         if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -49,11 +50,7 @@ class Video2AudioViewController: UIViewController {
         
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
 
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         AudioManager.shared.stopMusic()
         nameTextField.delegate = nil
@@ -294,7 +291,7 @@ class Video2AudioViewController: UIViewController {
     
 }
 
-extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentImagePicker(mode: [String]) {
         let imagePicker = UIImagePickerController()
@@ -383,7 +380,7 @@ extension Video2AudioViewController: UIImagePickerControllerDelegate, UINavigati
 
 }
 
-extension Video2AudioViewController: AVAudioPlayerDelegate {
+extension VideoToAudioViewController: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Video2AudioViewController - audioPlayerDidFinishPlaying")
@@ -394,7 +391,7 @@ extension Video2AudioViewController: AVAudioPlayerDelegate {
     }
 }
 
-extension Video2AudioViewController: UITextFieldDelegate {
+extension VideoToAudioViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Video2AudioViewController - textFieldShouldReturn")

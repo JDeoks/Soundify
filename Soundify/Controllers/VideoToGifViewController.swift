@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Video2GifViewController: UIViewController {
+class VideoToGifViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
