@@ -9,15 +9,12 @@ import UIKit
 import AVFoundation
 import AVKit
 import AudioKit
+import RxSwift
+import RxCocoa
+import RxGesture
+import RxKeyboard
 
 class VideoToAudioViewController: UIViewController {
-    
-    @IBOutlet var nameTextField: UITextField!
-    @IBOutlet var playButton: UIButton!
-    @IBOutlet var formatPopupButton: UIButton!
-    @IBOutlet var thumbnailImageView: UIImageView!
-    @IBOutlet var exportButton: UIButton!
-    @IBOutlet var audioProgressUISlider: UISlider!
     
     var videoURL: URL? = nil
     /// 받은 동영상에서 바꾼 m4a
@@ -25,8 +22,21 @@ class VideoToAudioViewController: UIViewController {
     /// 선택한 확장자로 바꾼 오디오. export 할때 사용
     var audioOutputURL: URL? = nil
     var selectedFormat: String = "m4a"
-    
+    ///
     var documentsDirectory: URL!
+    
+    let disposeBag = DisposeBag()
+    
+    @IBOutlet var backButton: UIButton!
+    @IBOutlet var addButton: UIButton!
+    @IBOutlet var nameTextField: UITextField!
+    @IBOutlet var playButton: UIButton!
+    @IBOutlet var backwardButton: UIButton!
+    @IBOutlet var forwardButton: UIButton!
+    @IBOutlet var formatPopupButton: UIButton!
+    @IBOutlet var thumbnailImageView: UIImageView!
+    @IBOutlet var exportButton: UIButton!
+    @IBOutlet var audioProgressUISlider: UISlider!
     
     // MARK: - LifeCycles
     override func viewDidLoad() {
@@ -34,16 +44,8 @@ class VideoToAudioViewController: UIViewController {
         print("\(type(of: self)) - \(#function)")
 
         initUI()
-        // 앱의 Document 디렉토리 경로를 가져옴
-        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            self.documentsDirectory = documentsDirectory
-        } else {
-            print("documentsDirectory 오류")
-        }
-        // 팝업버튼 등록
-        formatPopupButtonClicked()
-        nameTextField.delegate = self
-//        AudioManager.shared.audioPlayer!.delegate = self
+        initData()
+        action()
         
         // 0.1초 마다 updateAudioProgressUISlider 호출해서 audioProgressUISlider.value 업데이트
         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateAudioProgressUISlider), userInfo: nil, repeats: true)
@@ -53,28 +55,36 @@ class VideoToAudioViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         AudioManager.shared.stopMusic()
-        nameTextField.delegate = nil
+//        nameTextField.delegate = nil
 //        AudioManager.shared.audioPlayer?.delegate =  nil
     }
     
-    func initUI() {
+    // MARK: - initUI
+    private func initUI() {
+        // nameTextField
         nameTextField.addLeftAndRightPadding(size: 10)
         nameTextField.layer.cornerRadius = 8
-        formatPopupButton.layer.cornerRadius = 8
-        exportButton.layer.cornerRadius = 8
-        thumbnailImageView.layer.cornerRadius = 8
-        nameTextField.text = "\(DateManager.shared.getCurrentLocalizedDateTimeString())"
-    }
+        nameTextField.delegate = self
 
-    @IBAction func backButtonClicked(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        // formatPopupButton
+        formatPopupButton.layer.cornerRadius = 8
+        
+        // exportButton
+        exportButton.layer.cornerRadius = 8
+        
+        // thumbnailImageView
+        thumbnailImageView.layer.cornerRadius = 8
+        
+        // 팝업버튼 등록
+        setPopupButton()
+        
+        // audioPlayer
+//        AudioManager.shared.audioPlayer!.delegate = self
     }
-    
-    // MARK: - IBAction
     
     /// 팝업버튼 등록
-    func formatPopupButtonClicked() {
-        print("Video2AudioViewController - viewDidLoad")
+    func setPopupButton() {
+        print("\(type(of: self)) - \(#function)")
 
         let optionClosure = {(action : UIAction) in
             switch action.title {
@@ -95,16 +105,101 @@ class VideoToAudioViewController: UIViewController {
             UIAction (title : ".wav", handler: optionClosure)
         ])
         formatPopupButton.showsMenuAsPrimaryAction = true
-        formatPopupButton.changesSelectionAsPrimaryAction=true
+        formatPopupButton.changesSelectionAsPrimaryAction = true
     }
     
-    @IBAction func addButtonClicked(_ sender: Any) {
-        AudioManager.shared.stopMusic()
-        presentImagePicker(mode: [ UTType.movie.identifier ])
+    // MARK: - initData
+    private func initData() {
+        // documentsDirectory. 앱의 Document 디렉토리 경로를 가져옴
+        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            self.documentsDirectory = documentsDirectory
+        } else {
+            print("documentsDirectory 오류")
+        }
+        
+        // nameTextField
+        nameTextField.text = "\(DateManager.shared.getCurrentLocalizedDateTimeString())"
     }
     
+    // MARK: - action
+    private func action() {
+        // 뒤로가기
+        backButton.rx.tap
+            .subscribe { _ in
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        // 동영상 선택
+        addButton.rx.tap
+            .subscribe { _ in
+                AudioManager.shared.stopMusic()
+                self.presentImagePicker(mode: [ UTType.movie.identifier ])
+            }
+            .disposed(by: disposeBag)
+        
+        // 재생, 중지
+        playButton.rx.tap
+            .subscribe { _ in
+                // audioOutputURL이 nil인 경우 재생하지 않도록 확인
+                if self.audioInputURL == nil {
+                    print("오디오 파일이 존재하지 않습니다.")
+                    return
+                }
+                self.setPlayButtonImage()
+            }
+            .disposed(by: disposeBag)
+        
+        // 재생바 뒤로가기
+        backwardButton.rx.tap
+            .subscribe { _ in
+                guard let audioPlayer = AudioManager.shared.audioPlayer else {
+                    print("audioPlayer 없음")
+                    return
+                }
+                let currentTime = audioPlayer.currentTime - 5.0
+                audioPlayer.currentTime = currentTime < 0 ? 0 : currentTime
+            }
+            .disposed(by: disposeBag)
+        
+        // 재생바 앞으로 가기
+        backwardButton.rx.tap
+            .subscribe { _ in
+                guard let audioPlayer = AudioManager.shared.audioPlayer else {
+                    print("audioPlayer 없음")
+                    return
+                }
+                let currentTime = audioPlayer.currentTime + 5.0
+                if currentTime < audioPlayer.duration {
+                    audioPlayer.currentTime = currentTime
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func setPlayButtonImage() {
+        // 재생 여부 토글 후 버튼이미지 변경
+        if AudioManager.shared.audioPlayer?.isPlaying == true {
+            AudioManager.shared.pauseMusic()
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
+            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
+            playButton.setImage(image, for: .normal)
+        } else {
+            AudioManager.shared.playMusic()
+            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
+            if let audioPlayer = AudioManager.shared.audioPlayer {
+                self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
+            }
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
+            let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
+            playButton.setImage(image, for: .normal)
+        }
+    }
+    
+    // MARK: - IBAction
     @IBAction func audioProgressSliderTouchUpInside(_ sender: Any) {
-        print("Video2AudioViewController - audioProgressSliderTouchUpInside")
+        print("\(type(of: self)) - \(#function)")
+
         if let audioPlayer = AudioManager.shared.audioPlayer {
             // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
             self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
@@ -126,7 +221,8 @@ class VideoToAudioViewController: UIViewController {
     }
     
     @IBAction func audioProgressSliderTouchUpOutside(_ sender: Any) {
-        print("Video2AudioViewController - audioProgressSliderTouchUpOutside")
+        print("\(type(of: self)) - \(#function)")
+
         if let audioPlayer = AudioManager.shared.audioPlayer {
             // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
             self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
@@ -150,7 +246,7 @@ class VideoToAudioViewController: UIViewController {
     
     // 슬라이더 이동시 호출
     @IBAction func audioProgressSliderChanged(_ sender: Any) {
-        print("Video2AudioViewController - audioProgressSliderChanged")
+        print("\(type(of: self)) - \(#function)")
 //
 //        if let audioPlayer = AudioManager.shared.audioPlayer {
 //            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
@@ -171,76 +267,17 @@ class VideoToAudioViewController: UIViewController {
 //            print("audioPlayer = nil")
 //        }
     }
-    
-    @IBAction func audioPlayButtonClicked(_ sender: Any) {
-        print("Video2AudioViewController - audioPlayButtonClicked")
-        
-        // audioOutputURL이 nil인 경우 재생하지 않도록 확인
-        guard let audioURL = audioInputURL else {
-            print("오디오 파일이 존재하지 않습니다.")
-            return
-        }
-        
-        // 재생 여부 토글 후 버튼이미지 변경
-        if AudioManager.shared.audioPlayer?.isPlaying == true {
-            AudioManager.shared.pauseMusic()
-            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
-            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
-            playButton.setImage(image, for: .normal)
-        }
-        else {
-            AudioManager.shared.playMusic()
-            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
-            if let audioPlayer = AudioManager.shared.audioPlayer {
-                self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
-            }
-            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
-            let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
-            playButton.setImage(image, for: .normal)
-        }
-            
 
-    }
-    
-    @IBAction func backwardButtonClicked(_ sender: Any) {
-        print("Video2AudioViewController - backwardButtonClicked")
-
-        guard let audioPlayer = AudioManager.shared.audioPlayer else {
-            print("audioPlayer 없음")
-            return
-        }
-        let currentTime = audioPlayer.currentTime - 5.0
-        if currentTime > 0 {
-            audioPlayer.currentTime = currentTime
-        } else {
-            audioPlayer.currentTime = 0
-        }
-    }
-    
-    @IBAction func forwardButtonClicked(_ sender: Any) {
-        print("Video2AudioViewController - forwardButtonClicked")
-
-        guard let audioPlayer = AudioManager.shared.audioPlayer else {
-            print("audioPlayer 없음")
-            return
-        }
-        let currentTime = audioPlayer.currentTime + 5.0
-        if currentTime < audioPlayer.duration {
-            audioPlayer.currentTime = currentTime
-        }
-    }
-    
     @IBAction func ExportButtonClicked(_ sender: Any) {
-        print("Video2AudioViewController - ExportButtonClicked")
-        
-        // audioOutputURL이 nil인 경우 공유할 파일이 없으므로 리턴
+        print("\(type(of: self)) - \(#function)")
+
         if audioInputURL == nil {
             print("공유할 오디오 파일이 없습니다.")
             return
         }
 
         // 오디오 파일을 저장할 URL 생성
-        self.audioOutputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!)").appendingPathExtension(selectedFormat)
+        self.audioOutputURL = documentsDirectory.appendingPathComponent(nameTextField.text!).appendingPathExtension(selectedFormat)
         if audioInputURL == audioOutputURL {
             print("Video2AudioViewController - ExportButtonClicked - 두 확장자 같아서 바로 반환\(self.audioOutputURL)")
             let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
@@ -285,12 +322,13 @@ class VideoToAudioViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-        print("Video2AudioViewController - touchesBegan")
+        print("\(type(of: self)) - \(#function)")
          self.view.endEditing(true)
    }
     
 }
 
+// MARK: - UIImagePickerController
 extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentImagePicker(mode: [String]) {
@@ -306,7 +344,7 @@ extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigat
     
     // 이미지 피커 컨트롤러에서 이미지나 동영상을 선택한 후 호출되는 델리게이트 메서드
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("Video2AudioViewController - imagePickerController(didFinishPickingMediaWithInfo)")
+        print("\(type(of: self)) - \(#function)")
 
         picker.dismiss(animated: true, completion: nil)
         
@@ -364,7 +402,7 @@ extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigat
     }
     
     func deleteFileByURL(url: URL) {
-        print("Video2AudioViewController - deleteDuplicateFile")
+        print("\(type(of: self)) - \(#function)")
 
         // 중복 체크해서 이미 있으면 파일 삭제
         if FileManager.default.fileExists(atPath: url.path) {
@@ -380,23 +418,26 @@ extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigat
 
 }
 
+// MARK: - AVAudioPlayerDelegate
 extension VideoToAudioViewController: AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        print("Video2AudioViewController - audioPlayerDidFinishPlaying")
+        print("\(type(of: self)) - \(#function)")
         
+        // 오디오 재생 종료시 버튼 모양 변경
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
         let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
         playButton.setImage(image, for: .normal)
     }
 }
 
+// MARK: - UITextField
 extension VideoToAudioViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("Video2AudioViewController - textFieldShouldReturn")
-        
-        textField.resignFirstResponder()
+        print("\(type(of: self)) - \(#function)")
+
+        self.view.endEditing(true)
         return true
     }
     

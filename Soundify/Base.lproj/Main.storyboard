@@ -239,8 +239,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rpi-Bg-ayW">
                                 <rect key="frame" x="0.0" y="47" width="390" height="56"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pti-9V-TWy">
-                                        <rect key="frame" x="12" y="12" width="32" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pti-9V-TWy">
+                                        <rect key="frame" x="24" y="12" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="4hE-z6-K2Y"/>
                                             <constraint firstAttribute="width" constant="32" id="nYl-5y-ZZP"/>
@@ -250,16 +250,13 @@
                                         <state key="normal">
                                             <imageReference key="image" image="chevron.backward" catalog="system" symbolScale="large"/>
                                         </state>
-                                        <connections>
-                                            <action selector="backButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="HLt-In-gqY"/>
-                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LkF-jn-N9P">
-                                        <rect key="frame" x="44" y="3" width="302" height="50"/>
+                                        <rect key="frame" x="56" y="3" width="278" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvS-eM-Ttg">
-                                        <rect key="frame" x="346" y="12" width="32" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvS-eM-Ttg">
+                                        <rect key="frame" x="334" y="12" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="nuX-9a-4lG"/>
                                             <constraint firstAttribute="height" constant="32" id="pbG-r6-VCb"/>
@@ -277,7 +274,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="Phf-nG-Qrs"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
+                                <edgeInsets key="layoutMargins" top="0.0" left="24" bottom="0.0" right="24"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="xOW-62-PEF">
                                 <rect key="frame" x="24" y="139" width="342" height="545.33333333333337"/>
@@ -374,9 +371,6 @@
                                                         <state key="normal" image="gobackward.5" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="backwardButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="5ab-2E-v5u"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBw-54-ujk">
                                                         <rect key="frame" x="142.66666666666666" y="15.666666666666625" width="56.666666666666657" height="38.666666666666657"/>
@@ -386,9 +380,6 @@
                                                             <imageReference key="image" image="play.fill" catalog="system" symbolScale="default"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="40"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="audioPlayButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="5zg-40-c1M"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smy-eH-P0y">
                                                         <rect key="frame" x="229.33333333333334" y="20" width="56.666666666666657" height="30"/>
@@ -397,9 +388,6 @@
                                                         <state key="normal" image="goforward.5" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                                         </state>
-                                                        <connections>
-                                                            <action selector="forwardButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="fhu-pr-UIE"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -444,9 +432,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="gvS-eM-Ttg" id="q5K-ON-oZ3"/>
                         <outlet property="audioProgressUISlider" destination="EjT-1O-Ede" id="gRt-6I-yVV"/>
+                        <outlet property="backButton" destination="Pti-9V-TWy" id="qQL-pX-fJ4"/>
+                        <outlet property="backwardButton" destination="y4j-Dt-7FV" id="QVT-P2-SUN"/>
                         <outlet property="exportButton" destination="0og-m4-Wop" id="Umk-07-5iS"/>
                         <outlet property="formatPopupButton" destination="jhc-ZL-tfY" id="EfA-Ex-Mxs"/>
+                        <outlet property="forwardButton" destination="smy-eH-P0y" id="Sue-aD-bKM"/>
                         <outlet property="nameTextField" destination="ea6-Ew-Oks" id="Yrl-t9-ErW"/>
                         <outlet property="playButton" destination="zBw-54-ujk" id="suA-K6-zIz"/>
                         <outlet property="thumbnailImageView" destination="bOq-iE-TO3" id="yfR-mi-kNn"/>
