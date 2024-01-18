@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Soundify
 //
 //  Created by 서정덕 on 2023/08/05.

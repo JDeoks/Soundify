@@ -13,14 +13,16 @@ import RxSwift
 import RxCocoa
 import RxGesture
 import RxKeyboard
+import PhotosUI
 
 class VideoToAudioViewController: UIViewController {
     
+    var fileName: String = ""
     var videoURL: URL? = nil
     /// 받은 동영상에서 바꾼 m4a
-    var audioInputURL: URL? = nil
+    var convertedAudioURL: URL? = nil
     /// 선택한 확장자로 바꾼 오디오. export 할때 사용
-    var audioOutputURL: URL? = nil
+    var exportedAudioURL: URL? = nil
     var selectedFormat: String = "m4a"
     ///
     var documentsDirectory: URL!
@@ -50,7 +52,7 @@ class VideoToAudioViewController: UIViewController {
         // 0.1초 마다 updateAudioProgressUISlider 호출해서 audioProgressUISlider.value 업데이트
         Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateAudioProgressUISlider), userInfo: nil, repeats: true)
         
-        presentImagePicker(mode: [ UTType.movie.identifier ])
+        presentPicker()
     }
     
     // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
@@ -139,7 +141,7 @@ class VideoToAudioViewController: UIViewController {
         addButton.rx.tap
             .subscribe { _ in
                 AudioManager.shared.stopMusic()
-                self.presentImagePicker(mode: [ UTType.movie.identifier ])
+                self.presentPicker()
             }
             .disposed(by: disposeBag)
         
@@ -147,7 +149,7 @@ class VideoToAudioViewController: UIViewController {
         playButton.rx.tap
             .subscribe { _ in
                 // audioOutputURL이 nil인 경우 재생하지 않도록 확인
-                if self.audioInputURL == nil {
+                if self.convertedAudioURL == nil {
                     print("오디오 파일이 존재하지 않습니다.")
                     return
                 }
@@ -276,15 +278,15 @@ class VideoToAudioViewController: UIViewController {
     @IBAction func ExportButtonClicked(_ sender: Any) {
         print("\(type(of: self)) - \(#function)")
 
-        if audioInputURL == nil {
+        if convertedAudioURL == nil {
             print("공유할 오디오 파일 없음.")
             return
         }
         
         // 오디오 파일을 저장할 URL 생성
-        self.audioOutputURL = documentsDirectory.appendingPathComponent(nameTextField.text!).appendingPathExtension(selectedFormat)
+        self.exportedAudioURL = documentsDirectory.appendingPathComponent(nameTextField.text!).appendingPathExtension(selectedFormat)
         // 두 확장자 같으면 바로 반환
-        if audioInputURL == audioOutputURL {
+        if convertedAudioURL == exportedAudioURL {
             presentActivityVC()
             return
         }
@@ -301,7 +303,7 @@ class VideoToAudioViewController: UIViewController {
         }
         options.sampleRate = 48000
         options.bitDepth = 24
-        let converter = FormatConverter(inputURL: audioInputURL!, outputURL: audioOutputURL!, options: options)
+        let converter = FormatConverter(inputURL: convertedAudioURL!, outputURL: exportedAudioURL!, options: options)
         DispatchQueue.global().async {
             converter.start { error in
                 if let error = error {
@@ -309,7 +311,7 @@ class VideoToAudioViewController: UIViewController {
                     return
                 }
                 DispatchQueue.main.async{
-                    print("\(#function) - 컨버터 성공", self.audioOutputURL!)
+                    print("\(#function) - 컨버터 성공", self.exportedAudioURL!)
                     self.presentActivityVC()
                 }
             }
@@ -325,85 +327,112 @@ class VideoToAudioViewController: UIViewController {
     private func presentActivityVC() {
         print("\(type(of: self)) - \(#function)")
 
-        let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [self.exportedAudioURL!], applicationActivities: nil)
         self.present(activityViewController, animated: true, completion: nil)
     }
     
 }
 
-// MARK: - UIImagePickerController
-extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func presentImagePicker(mode: [String]) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.mediaTypes = mode
-        // 동영상 품질 설정 (high, medium, low 중 선택)
-//        imagePicker.videoQuality = .typeHigh
-        // 사진 라이브러리에서 선택
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    // 이미지 피커 컨트롤러에서 이미지나 동영상을 선택한 후 호출되는 델리게이트 메서드
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// MARK: - PHPickerViewController
+extension VideoToAudioViewController: PHPickerViewControllerDelegate {
+        
+    func presentPicker() {
         print("\(type(of: self)) - \(#function)")
 
-        picker.dismiss(animated: true, completion: nil)
+        self.view.endEditing(true)
+        var config = PHPickerConfiguration()
+//        config.selection = .ordered
+        config.filter = .videos
+        config.selectionLimit = 1
+        let imagePicker = PHPickerViewController(configuration: config)
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        print("\(type(of: self)) - \(#function)")
         
-        // 선택된 미디어의 유형을 확인
-        if let mediaType = info[.mediaType] as? String,
-           mediaType == UTType.movie.identifier,
-           let url = info[.mediaURL] as? URL {
-            // 선택한 동영상 URL을 사용하여 추가적인 처리를 수행
-            // 뷰컨트롤러에 비디오 URL 저장
-            self.videoURL = url
-            print("비디오 url\(videoURL)")
-            let asset = AVAsset(url: url)
-            // 오디오 파일을 저장할 URL 생성
-            self.audioInputURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!).m4a")
-            // 중복 삭제
-            deleteFileByURL(url: audioInputURL!)
-            // AVAsset에서 오디오 트랙을 분리하고 .m4a 오디오 파일로 저장
-            asset.writeAudioTrackToURL(self.audioInputURL!) { (success, error) in
-                if success {
-                    print("오디오 트랙을 .m4a 파일로 저장 완료 \(String(describing: self.audioInputURL)) ")
-                    // 재생 버튼 활성화 등 원하는 추가 작업 수행
-                    // 저장 완료 후 오디오 매니저에 음원 등록
-                    AudioManager.shared.registerAudioByURL(url: self.audioInputURL!)
-                } else {
-                    print("오디오 트랙 저장 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
-                }
-            }
-            // 비디오의 썸네일 이미지를 추출하여 이미지 뷰에 표시
-            if let thumbnailImage = getThumbnailImage(for: videoURL!) {
-                thumbnailImageView.contentMode = .scaleAspectFill
-                thumbnailImageView.image = thumbnailImage
-            } else {
-                print("썸네일 이미지를 추출할 수 없습니다.")
-            }
+        fileName = nameTextField.text!
+        picker.dismiss(animated: true, completion: nil)
+        guard let result = results.first else {
+            return
+        }
+        
+        let itemProvider: NSItemProvider = result.itemProvider
+        
+        // 비디오 타입 체크
+        if itemProvider.hasItemConformingToTypeIdentifier(UTType.mpeg4Movie.identifier) {
+            // "public.mpeg-4"
+            print("type: mpeg4Movie")
+            dealWithMpeg4(itemProvider: itemProvider)
+        } else if itemProvider.hasItemConformingToTypeIdentifier(UTType.movie.identifier){
+            // "com.apple.quicktime-movie"
+            print("type: movie")
+            dealWithQuicktimeMovie(itemProvider: itemProvider)
+        } else {
+            let types = itemProvider.registeredTypeIdentifiers
+            print("type: 맞는 타입 없음", types)
         }
     }
     
-    func getThumbnailImage(for videoURL: URL) -> UIImage? {
+    // MARK: - 비디오 처리 로직
+    private func dealWithMpeg4(itemProvider: NSItemProvider) {
+        print("\(type(of: self)) - \(#function)")
+
+        let mpeg4 = UTType.mpeg4Movie.identifier // "com.apple.quicktime-movie"
+        // NB we could have a Progress here if we want one
+        itemProvider.loadFileRepresentation(forTypeIdentifier: mpeg4) { url, err in
+            guard let videoURL = url else {
+                print(err!.localizedDescription)
+                return
+            }
+            print("loadFileRepresentation 성공")
+            self.videoURLToAudio(videoURL: videoURL)
+            self.setThumbnailImage(videoURL: videoURL)
+        }
+    }
+    
+    private func dealWithQuicktimeMovie(itemProvider: NSItemProvider) {
+        print("\(type(of: self)) - \(#function)")
+
+        let movie = UTType.movie.identifier // "com.apple.quicktime-movie"
+        // NB we could have a Progress here if we want one
+        itemProvider.loadFileRepresentation(forTypeIdentifier: movie) { url, err in
+            guard let videoURL = url else {
+                print(err!.localizedDescription)
+                return
+            }
+            print("loadFileRepresentation 성공")
+            self.videoURLToAudio(videoURL: videoURL)
+            self.setThumbnailImage(videoURL: videoURL)
+        }
+    }
+    
+    private func videoURLToAudio(videoURL: URL) {
+        print("\(type(of: self)) - \(#function) videoURL: \(String(describing: videoURL))")
+
+        // 뷰컨트롤러에 비디오 URL 저장
+        self.videoURL = videoURL
+        // 비디오로 AVAsset 생성
         let asset = AVAsset(url: videoURL)
-        let imageGenerator = AVAssetImageGenerator(asset: asset)
-
-        // 비디오의 첫 번째 프레임의 이미지를 추출하도록 설정
-        imageGenerator.appliesPreferredTrackTransform = true
-        let time = CMTime(seconds: 0.0, preferredTimescale: 600)
-
-        do {
-            // 썸네일 이미지를 추출
-            let thumbnailCGImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
-            // CGImage를 UIImage로 변환하여 반환
-            return UIImage(cgImage: thumbnailCGImage)
-        } catch {
-            print("썸네일 이미지를 추출하는 동안 오류가 발생했습니다: \\(error.localizedDescription)")
-            return nil
+        // 오디오 파일을 저장할 URL 생성
+        self.convertedAudioURL = documentsDirectory.appendingPathComponent("\(fileName).m4a")
+        // 기존 파일 삭제
+        deleteFileByURL(url: convertedAudioURL!)
+        // 생성한 url에 오디오파일 저장
+        asset.saveAudioFileToURL(self.convertedAudioURL!) { (success, error) in
+            if success == false {
+                print("saveAudioFileToURL 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
+                return
+            }
+            print("saveAudioFileToURL 성공 \(String(describing: self.convertedAudioURL)) ")
+            // 재생 버튼 활성화 등 원하는 추가 작업 수행
+            // 저장 완료 후 오디오 매니저에 음원 등록
+            AudioManager.shared.registerAudioByURL(url: self.convertedAudioURL!)
         }
     }
     
+    /// url에 있는 파일 삭제
     func deleteFileByURL(url: URL) {
         print("\(type(of: self)) - \(#function)")
 
@@ -418,7 +447,40 @@ extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigat
             }
         }
     }
+    
+    /// 썸네일이미지 이미지뷰에 표시
+    func setThumbnailImage(videoURL: URL) {
+        print("\(type(of: self)) - \(#function) videoURL: \(String(describing: videoURL))")
+        getThumbnailImage(for: videoURL) { thumbnailImage in
+            DispatchQueue.main.async {
+                self.thumbnailImageView.contentMode = .scaleAspectFill
+                self.thumbnailImageView.image = thumbnailImage
+            }
+        }
+    }
+    
+    /// 영상 시작화면 캡쳐해서 썸네일 추출
+    func getThumbnailImage(for videoURL: URL, completion: @escaping (UIImage) -> Void) -> Void {
+        print("\(type(of: self)) - \(#function) videoURL: \(String(describing: videoURL))")
 
+        let videoAsset = AVAsset(url: videoURL)
+        let imageGenerator = AVAssetImageGenerator(asset: videoAsset)
+
+        imageGenerator.appliesPreferredTrackTransform = true
+        let firstTime = CMTime(value: 0, timescale: 1000)
+        let secondTime = CMTime(value: 1, timescale: 1000)
+
+        let times: [NSValue] = [firstTime as NSValue, secondTime as NSValue]
+        
+        imageGenerator.generateCGImagesAsynchronously(forTimes: times) { _, cgImage, _, _, error in
+            guard let cgImage = cgImage else {
+                print("generateCGImagesAsynchronously 실패", error!.localizedDescription)
+                return
+            }
+            completion(UIImage(cgImage: cgImage))
+        }
+    }
+    
 }
 
 // MARK: - AVAudioPlayerDelegate

@@ -266,9 +266,6 @@
                                         <state key="normal">
                                             <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                         </state>
-                                        <connections>
-                                            <action selector="addButtonClicked:" destination="qua-aa-1pY" eventType="touchUpInside" id="7ig-an-Rv3"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
