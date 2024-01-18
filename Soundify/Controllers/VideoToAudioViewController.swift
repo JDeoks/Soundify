@@ -365,7 +365,7 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
             // "public.mpeg-4"
             print("type: mpeg4Movie")
             dealWithMpeg4(itemProvider: itemProvider)
-        } else if itemProvider.hasItemConformingToTypeIdentifier(UTType.movie.identifier){
+        } else if itemProvider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
             // "com.apple.quicktime-movie"
             print("type: movie")
             dealWithQuicktimeMovie(itemProvider: itemProvider)
