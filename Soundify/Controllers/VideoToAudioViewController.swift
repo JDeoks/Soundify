@@ -52,6 +52,11 @@ class VideoToAudioViewController: UIViewController {
         
         presentImagePicker(mode: [ UTType.movie.identifier ])
     }
+    
+    // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
+    @objc func updateAudioProgressUISlider() {
+        audioProgressUISlider.value = Float(AudioManager.shared.audioPlayer?.currentTime ?? 0)
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         AudioManager.shared.stopMusic()
@@ -146,7 +151,7 @@ class VideoToAudioViewController: UIViewController {
                     print("오디오 파일이 존재하지 않습니다.")
                     return
                 }
-                self.setPlayButtonImage()
+                self.togglePlayButton()
             }
             .disposed(by: disposeBag)
         
@@ -177,7 +182,7 @@ class VideoToAudioViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setPlayButtonImage() {
+    private func togglePlayButton() {
         // 재생 여부 토글 후 버튼이미지 변경
         if AudioManager.shared.audioPlayer?.isPlaying == true {
             AudioManager.shared.pauseMusic()
@@ -272,20 +277,19 @@ class VideoToAudioViewController: UIViewController {
         print("\(type(of: self)) - \(#function)")
 
         if audioInputURL == nil {
-            print("공유할 오디오 파일이 없습니다.")
-            return
-        }
-
-        // 오디오 파일을 저장할 URL 생성
-        self.audioOutputURL = documentsDirectory.appendingPathComponent(nameTextField.text!).appendingPathExtension(selectedFormat)
-        if audioInputURL == audioOutputURL {
-            print("Video2AudioViewController - ExportButtonClicked - 두 확장자 같아서 바로 반환\(self.audioOutputURL)")
-            let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
-            self.present(activityViewController, animated: true, completion: nil)
+            print("공유할 오디오 파일 없음.")
             return
         }
         
-        // 컨버터 옵션 설정
+        // 오디오 파일을 저장할 URL 생성
+        self.audioOutputURL = documentsDirectory.appendingPathComponent(nameTextField.text!).appendingPathExtension(selectedFormat)
+        // 두 확장자 같으면 바로 반환
+        if audioInputURL == audioOutputURL {
+            presentActivityVC()
+            return
+        }
+        
+        // 컨버터 설정&실행
         var options = FormatConverter.Options()
         switch selectedFormat {
         case "m4a":
@@ -297,34 +301,33 @@ class VideoToAudioViewController: UIViewController {
         }
         options.sampleRate = 48000
         options.bitDepth = 24
-        
-        // 컨버터 설정&실행
         let converter = FormatConverter(inputURL: audioInputURL!, outputURL: audioOutputURL!, options: options)
         DispatchQueue.global().async {
             converter.start { error in
-                if error == nil {
-                    DispatchQueue.main.sync{
-                        print("Video2AudioViewController - ExportButtonClicked - 컨버터 성공\(self.audioOutputURL)")
-                        let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
-                        self.present(activityViewController, animated: true, completion: nil)
-                    }
-                } else {
-                    print("Video2AudioViewController - ExportButtonClicked - 컨버터 오류")
-                    print(error)
+                if let error = error {
+                    print("\(#function) - 컨버터 오류", error.localizedDescription)
+                    return
+                }
+                DispatchQueue.main.async{
+                    print("\(#function) - 컨버터 성공", self.audioOutputURL!)
+                    self.presentActivityVC()
                 }
             }
         }
     }
     
-    // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
-    @objc func updateAudioProgressUISlider() {
-        audioProgressUISlider.value = Float(AudioManager.shared.audioPlayer?.currentTime ?? 0)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         print("\(type(of: self)) - \(#function)")
-         self.view.endEditing(true)
+        
+        self.view.endEditing(true)
    }
+    
+    private func presentActivityVC() {
+        print("\(type(of: self)) - \(#function)")
+
+        let activityViewController = UIActivityViewController(activityItems: [self.audioOutputURL!], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     
 }
 
