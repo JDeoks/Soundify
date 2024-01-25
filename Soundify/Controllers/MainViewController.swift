@@ -16,7 +16,7 @@ import Firebase
 class MainViewController: UIViewController {
     
     let disposeBag = DisposeBag()
-
+    
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var videoToAudioViewButton: UIView!
     @IBOutlet var videoToGifViewButton: UIView!
@@ -25,9 +25,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-          AnalyticsParameterItemID: "id-\(title!)",
-          AnalyticsParameterItemName: title!,
-          AnalyticsParameterContentType: "cont",
+            AnalyticsParameterItemID: "id-\(title!)",
+            AnalyticsParameterItemName: title!,
+            AnalyticsParameterContentType: "cont",
         ])
         
         print(Locale.current.identifier)
@@ -41,7 +41,7 @@ class MainViewController: UIViewController {
     private func initUI() {
         // navigationController
         self.navigationController?.navigationBar.isHidden = true
-
+        
         // scrollView
         scrollView.isScrollEnabled = true
         scrollView.alwaysBounceVertical = true
@@ -81,22 +81,41 @@ class MainViewController: UIViewController {
         ConfigManager.shared.fetchRemoteConfigDone
             .subscribe { _ in
                 print("fetchRemoteConfigDone")
+                // 최소버전
+                if ConfigManager.shared.isMinimumVersionSatisfied() == false {
+                    DispatchQueue.main.async {
+                        self.showUpdateRequired()
+                    }
+                    return
+                }
+                // 점검 메시지
                 if !ConfigManager.shared.getMaintenanceStateFromLocal().isEmpty {
                     DispatchQueue.main.async {
                         self.showNoticeAlert(message: ConfigManager.shared.getMaintenanceStateFromLocal())
                     }
                     return
                 }
-                if ConfigManager.shared.isMinimumVersionSatisfied() == false {
-                    DispatchQueue.main.async {
-                        self.showNoticeAlert(
-                            message:
-                                "This app requires an update.\nPlease update the app from the App Store.")
-                    }
-                    return
-                }
             }
             .disposed(by: disposeBag)
     }
-
+    
+    // MARK: - Alert
+    func showUpdateRequired() {
+        print("\(type(of: self)) - \(#function)")
+        
+        let sheet = UIAlertController(title: "Update Required", message: "Please update to the latest version for an enhanced experience.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.showUpdateRequired()
+            self.openAppStore(appId: "6461084209")
+        })
+        sheet.addAction(okAction)
+        present(sheet, animated: true)
+    }
+    
+    func openAppStore(appId: String) {
+        let url = "itms-apps://itunes.apple.com/app/" + appId;
+        if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }

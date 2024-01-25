@@ -35,7 +35,7 @@ class ConfigManager {
     enum RemoteConfigKey: String {
         case minimumVersion = "minimumVersion"
         case maintenanceNotice = "maintenanceNotice"
-//        case greetingMessage = "greetingMessage"
+        case greetingMessage = "greetingMessage"
     }
     
     /// Config 서버값을 fetch해서 로컬에 저장하는 함수
