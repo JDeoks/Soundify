@@ -51,6 +51,9 @@ class MainViewController: UIViewController {
         
         // videoToGifViewButton
         videoToGifViewButton.layer.cornerRadius = 12
+        
+        // TODO: - 구현
+        videoToGifViewButton.isHidden = true
     }
     
     private func initData() {
