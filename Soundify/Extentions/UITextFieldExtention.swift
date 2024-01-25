@@ -11,16 +11,17 @@ import UIKit
 extension UITextField {
     
     /// 좌우로 size만큼 띄움
-    func addLeftAndRightPadding(size: CGFloat) {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: size, height: self.frame.height))
-        
+    func addLeftAndRightPadding(left: CGFloat, right: CGFloat) {
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: left, height: self.frame.height))
+        let rightPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: right, height: self.frame.height))
+
         // Left padding
-        self.leftView = paddingView
+        self.leftView = leftPaddingView
         self.leftViewMode = ViewMode.always
         
         // Right padding
-        self.rightView = paddingView
+        self.rightView = rightPaddingView
         self.rightViewMode = ViewMode.always
     }
-    
+        
 }

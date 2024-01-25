@@ -12,6 +12,7 @@
 		2A2746342B6171A4007D5831 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746332B6171A4007D5831 /* FirebaseAppCheck */; };
 		2A2746362B6171A5007D5831 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746352B6171A5007D5831 /* FirebaseAppDistribution-Beta */; };
 		2A2746382B6171A5007D5831 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746372B6171A5007D5831 /* FirebaseAuth */; };
+		2A27463B2B62A08E007D5831 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27463A2B62A08E007D5831 /* SnapKit */; };
 		2A354E142A7FC8170014F173 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E132A7FC8170014F173 /* AVAssetExtension.swift */; };
 		2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E162A7FD2110014F173 /* AudioManager.swift */; };
 		2A354E192A8002790014F173 /* UITextFieldExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E182A8002790014F173 /* UITextFieldExtention.swift */; };
@@ -71,6 +72,7 @@
 				2AC5E9E42B582C3100A029F3 /* RxGesture in Frameworks */,
 				2AC5E9E12B582C1800A029F3 /* RxKeyboard in Frameworks */,
 				2A2746362B6171A5007D5831 /* FirebaseAppDistribution-Beta in Frameworks */,
+				2A27463B2B62A08E007D5831 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +185,7 @@
 				2A2746332B6171A4007D5831 /* FirebaseAppCheck */,
 				2A2746352B6171A5007D5831 /* FirebaseAppDistribution-Beta */,
 				2A2746372B6171A5007D5831 /* FirebaseAuth */,
+				2A27463A2B62A08E007D5831 /* SnapKit */,
 			);
 			productName = Soundify;
 			productReference = 2AB29B382A7E6C6900EC52B2 /* Soundify.app */;
@@ -220,6 +223,7 @@
 				2AC5E9DF2B582C1800A029F3 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 				2AC5E9E22B582C3100A029F3 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2A2746392B62A08E007D5831 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 2AB29B392A7E6C6900EC52B2 /* Products */;
 			projectDirPath = "";
@@ -503,6 +507,14 @@
 				minimumVersion = 10.20.0;
 			};
 		};
+		2A2746392B62A08E007D5831 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.0;
+			};
+		};
 		2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
@@ -565,6 +577,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		2A27463A2B62A08E007D5831 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A2746392B62A08E007D5831 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 		2A53DB5A2A829CD5004BCA79 /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;

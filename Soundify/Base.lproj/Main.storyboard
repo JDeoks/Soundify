@@ -295,7 +295,7 @@
                                                             <constraint firstAttribute="height" constant="48" id="rXZ-yd-Bvd"/>
                                                         </constraints>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jhc-ZL-tfY">
@@ -304,7 +304,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="jhc-ZL-tfY" secondAttribute="height" multiplier="4:3" id="m4A-Io-wx6"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                         <menu key="menu" id="WJm-0X-hxC">
                                                             <children>
                                                                 <command title=".m4a" id="dbZ-XM-Fvc" userLabel=".m4a"/>
@@ -397,12 +397,37 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F2n-HD-qTz">
+                                <rect key="frame" x="0.0" y="860" width="390" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A87-QB-H1T">
+                                        <rect key="frame" x="336" y="0.0" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="Voi-Kg-LUt"/>
+                                            <constraint firstAttribute="width" constant="48" id="rL4-oP-pPm"/>
+                                        </constraints>
+                                        <color key="tintColor" name="LableBlack"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="keyboard.chevron.compact.down" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="18"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="KeyboardToolBar"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="1Mq-Or-sL8"/>
+                                    <constraint firstItem="A87-QB-H1T" firstAttribute="top" secondItem="F2n-HD-qTz" secondAttribute="top" id="1yw-U7-bTR"/>
+                                    <constraint firstAttribute="bottom" secondItem="A87-QB-H1T" secondAttribute="bottom" id="4fN-zR-mca"/>
+                                    <constraint firstAttribute="trailing" secondItem="A87-QB-H1T" secondAttribute="trailing" constant="6" id="Rfs-Ht-mfh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d2d-IA-7rY"/>
                         <color key="backgroundColor" name="BackGroundWhite"/>
                         <constraints>
                             <constraint firstItem="DRJ-FF-imr" firstAttribute="trailing" secondItem="d2d-IA-7rY" secondAttribute="trailing" id="4HZ-ir-Sia"/>
                             <constraint firstItem="rpi-Bg-ayW" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" id="6I1-XL-ACR"/>
+                            <constraint firstItem="F2n-HD-qTz" firstAttribute="trailing" secondItem="d2d-IA-7rY" secondAttribute="trailing" id="AYH-U8-cq5"/>
                             <constraint firstItem="jyh-uQ-QZH" firstAttribute="centerX" secondItem="rpi-Bg-ayW" secondAttribute="centerX" id="AoR-xw-T03"/>
                             <constraint firstItem="DRJ-FF-imr" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" id="Bqn-A9-hKw"/>
                             <constraint firstItem="xOW-62-PEF" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" constant="20" id="E8H-rx-Wrl"/>
@@ -412,7 +437,9 @@
                             <constraint firstItem="xOW-62-PEF" firstAttribute="top" secondItem="DRJ-FF-imr" secondAttribute="bottom" constant="32" id="dKL-VQ-Qy1"/>
                             <constraint firstItem="rpi-Bg-ayW" firstAttribute="top" secondItem="d2d-IA-7rY" secondAttribute="top" id="dh3-Ka-uGF"/>
                             <constraint firstItem="d2d-IA-7rY" firstAttribute="trailing" secondItem="rpi-Bg-ayW" secondAttribute="trailing" id="fMx-aU-dU0"/>
+                            <constraint firstItem="F2n-HD-qTz" firstAttribute="leading" secondItem="d2d-IA-7rY" secondAttribute="leading" id="fbH-Qv-8Nu"/>
                             <constraint firstItem="d2d-IA-7rY" firstAttribute="trailing" secondItem="xOW-62-PEF" secondAttribute="trailing" constant="20" id="jNO-oh-VYe"/>
+                            <constraint firstItem="F2n-HD-qTz" firstAttribute="top" secondItem="Wj8-BI-9ej" secondAttribute="bottom" constant="16" id="z6E-B9-e8S"/>
                         </constraints>
                     </view>
                     <connections>
@@ -423,6 +450,8 @@
                         <outlet property="exportButton" destination="0og-m4-Wop" id="Umk-07-5iS"/>
                         <outlet property="formatPopupButton" destination="jhc-ZL-tfY" id="EfA-Ex-Mxs"/>
                         <outlet property="forwardButton" destination="y4j-Dt-7FV" id="QVT-P2-SUN"/>
+                        <outlet property="hideKeyboardButton" destination="A87-QB-H1T" id="hD2-Vs-4tn"/>
+                        <outlet property="keyboardToolContainerView" destination="F2n-HD-qTz" id="u6B-mp-Kyl"/>
                         <outlet property="nameTextField" destination="ea6-Ew-Oks" id="Yrl-t9-ErW"/>
                         <outlet property="playButton" destination="zBw-54-ujk" id="suA-K6-zIz"/>
                         <outlet property="thumbnailImageView" destination="bOq-iE-TO3" id="yfR-mi-kNn"/>
@@ -455,6 +484,7 @@
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="gobackward.5" catalog="system" width="119" height="128"/>
         <image name="goforward.5" catalog="system" width="119" height="128"/>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="100"/>
         <image name="logoOnly" width="279" height="279"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
@@ -465,6 +495,9 @@
         </namedColor>
         <namedColor name="BoxGray">
             <color red="0.81568627450980391" green="0.81568627450980391" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="KeyboardToolBar">
+            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LableBlack">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -14,6 +14,7 @@ import RxCocoa
 import RxGesture
 import RxKeyboard
 import PhotosUI
+import SnapKit
 
 class VideoToAudioViewController: UIViewController {
     
@@ -39,6 +40,8 @@ class VideoToAudioViewController: UIViewController {
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var exportButton: UIButton!
     @IBOutlet var audioProgressUISlider: UISlider!
+    @IBOutlet var keyboardToolContainerView: UIView!
+    @IBOutlet var hideKeyboardButton: UIButton!
     
     // MARK: - LifeCycles
     override func viewDidLoad() {
@@ -58,7 +61,7 @@ class VideoToAudioViewController: UIViewController {
     // MARK: - initUI
     private func initUI() {
         // nameTextField
-        nameTextField.addLeftAndRightPadding(size: 10)
+        nameTextField.addLeftAndRightPadding(left: 12, right: 0)
         nameTextField.layer.cornerRadius = 8
         nameTextField.delegate = self
 
@@ -154,6 +157,31 @@ class VideoToAudioViewController: UIViewController {
         exportButton.rx.tap
             .subscribe { _ in
                 self.exportAudio()
+            }
+            .disposed(by: disposeBag)
+        
+        // 키보드 툴바
+        RxKeyboard.instance.visibleHeight
+            .skip(1)
+            .drive(onNext: { keyboardVisibleHeight in
+                UIView.animate(withDuration: 0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.keyboardToolContainerView.snp.updateConstraints { make in
+                        if keyboardVisibleHeight == 0 {
+                            let containerViewHeight = self.keyboardToolContainerView.frame.height
+                            make.bottom.equalToSuperview().inset(-containerViewHeight).priority(1000)
+                        } else {
+                            make.bottom.equalToSuperview().inset(keyboardVisibleHeight).priority(1000)
+                        }
+                    }
+                    self.view.layoutIfNeeded() // 중요: 레이아웃 즉시 업데이트
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        // 키보드 툴바 버튼
+        hideKeyboardButton.rx.tap
+            .subscribe { _ in
+                self.view.endEditing(true)
             }
             .disposed(by: disposeBag)
     }
@@ -281,7 +309,7 @@ class VideoToAudioViewController: UIViewController {
         DispatchQueue.main.async {
             let activityViewController = UIActivityViewController(activityItems: [exportingURL], applicationActivities: nil)
 
-            // 아이폰에서 모달,아이패드에서 팝오버 
+            // 아이폰에서 모달,아이패드에서 팝오버
             if let popoverPresentationController = activityViewController.popoverPresentationController {
                 popoverPresentationController.sourceView = self.view // 팝오버의 출발점 뷰
                 popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0) // 출발점 위치
