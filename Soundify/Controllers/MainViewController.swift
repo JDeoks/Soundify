@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
     }
     
     private func initData() {
-        
+        ConfigManager.shared.fetchRemoteConfig()
     }
     
     private func action() {
@@ -78,7 +78,25 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
-        
+        ConfigManager.shared.fetchRemoteConfigDone
+            .subscribe { _ in
+                print("fetchRemoteConfigDone")
+                if !ConfigManager.shared.getMaintenanceStateFromLocal().isEmpty {
+                    DispatchQueue.main.async {
+                        self.showNoticeAlert(message: ConfigManager.shared.getMaintenanceStateFromLocal())
+                    }
+                    return
+                }
+                if ConfigManager.shared.isMinimumVersionSatisfied() == false {
+                    DispatchQueue.main.async {
+                        self.showNoticeAlert(
+                            message:
+                                "This app requires an update.\nPlease update the app from the App Store.")
+                    }
+                    return
+                }
+            }
+            .disposed(by: disposeBag)
     }
 
 }
