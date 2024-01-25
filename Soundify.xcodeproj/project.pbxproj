@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A27462F2B617165007D5831 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A27462E2B617165007D5831 /* GoogleService-Info.plist */; };
+		2A2746322B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746312B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		2A2746342B6171A4007D5831 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746332B6171A4007D5831 /* FirebaseAppCheck */; };
+		2A2746362B6171A5007D5831 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746352B6171A5007D5831 /* FirebaseAppDistribution-Beta */; };
+		2A2746382B6171A5007D5831 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746372B6171A5007D5831 /* FirebaseAuth */; };
 		2A354E142A7FC8170014F173 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E132A7FC8170014F173 /* AVAssetExtension.swift */; };
 		2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E162A7FD2110014F173 /* AudioManager.swift */; };
 		2A354E192A8002790014F173 /* UITextFieldExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E182A8002790014F173 /* UITextFieldExtention.swift */; };
@@ -30,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A27462E2B617165007D5831 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A354E132A7FC8170014F173 /* AVAssetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAssetExtension.swift; sourceTree = "<group>"; };
 		2A354E162A7FD2110014F173 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		2A354E182A8002790014F173 /* UITextFieldExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtention.swift; sourceTree = "<group>"; };
@@ -55,12 +61,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A2746342B6171A4007D5831 /* FirebaseAppCheck in Frameworks */,
+				2A2746382B6171A5007D5831 /* FirebaseAuth in Frameworks */,
 				2AC5E9DE2B582BF100A029F3 /* RxSwift in Frameworks */,
 				2A53DB812A82C445004BCA79 /* SwiftDate in Frameworks */,
 				2AC5E9DC2B582BF100A029F3 /* RxCocoa in Frameworks */,
 				2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */,
+				2A2746322B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				2AC5E9E42B582C3100A029F3 /* RxGesture in Frameworks */,
 				2AC5E9E12B582C1800A029F3 /* RxKeyboard in Frameworks */,
+				2A2746362B6171A5007D5831 /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,11 +104,19 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		2AA7083C2B61558300F77C3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2AB29B2F2A7E6C6900EC52B2 = {
 			isa = PBXGroup;
 			children = (
 				2AB29B3A2A7E6C6900EC52B2 /* Soundify */,
 				2AB29B392A7E6C6900EC52B2 /* Products */,
+				2AA7083C2B61558300F77C3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +141,7 @@
 				2AB29B442A7E6C6B00EC52B2 /* Assets.xcassets */,
 				2AB29B462A7E6C6B00EC52B2 /* LaunchScreen.storyboard */,
 				2AB29B492A7E6C6B00EC52B2 /* Info.plist */,
+				2A27462E2B617165007D5831 /* GoogleService-Info.plist */,
 			);
 			path = Soundify;
 			sourceTree = "<group>";
@@ -160,6 +179,10 @@
 				2AC5E9DD2B582BF100A029F3 /* RxSwift */,
 				2AC5E9E02B582C1800A029F3 /* RxKeyboard */,
 				2AC5E9E32B582C3100A029F3 /* RxGesture */,
+				2A2746312B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				2A2746332B6171A4007D5831 /* FirebaseAppCheck */,
+				2A2746352B6171A5007D5831 /* FirebaseAppDistribution-Beta */,
+				2A2746372B6171A5007D5831 /* FirebaseAuth */,
 			);
 			productName = Soundify;
 			productReference = 2AB29B382A7E6C6900EC52B2 /* Soundify.app */;
@@ -196,6 +219,7 @@
 				2AC5E9D62B582BF100A029F3 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				2AC5E9DF2B582C1800A029F3 /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 				2AC5E9E22B582C3100A029F3 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 2AB29B392A7E6C6900EC52B2 /* Products */;
 			projectDirPath = "";
@@ -211,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A27462F2B617165007D5831 /* GoogleService-Info.plist in Resources */,
 				2AB29B482A7E6C6B00EC52B2 /* LaunchScreen.storyboard in Resources */,
 				2AB29B452A7E6C6B00EC52B2 /* Assets.xcassets in Resources */,
 				2AB29B432A7E6C6900EC52B2 /* Main.storyboard in Resources */,
@@ -393,7 +418,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -405,6 +430,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -426,7 +452,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -438,6 +464,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -468,6 +495,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.20.0;
+			};
+		};
 		2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
@@ -511,6 +546,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2A2746312B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		2A2746332B6171A4007D5831 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		2A2746352B6171A5007D5831 /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+		2A2746372B6171A5007D5831 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		2A53DB5A2A829CD5004BCA79 /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2A53DB592A829CD5004BCA79 /* XCRemoteSwiftPackageReference "AudioKit" */;

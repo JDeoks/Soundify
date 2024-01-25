@@ -17,14 +17,14 @@ import PhotosUI
 
 class VideoToAudioViewController: UIViewController {
     
+    let m4a = "m4a"
+    let wav = "wav"
+    
     var fileName: String = ""
     var videoURL: URL? = nil
     /// 받은 동영상에서 바꾼 m4a
-    var convertedAudioURL: URL? = nil
-    /// 선택한 확장자로 바꾼 오디오. export 할때 사용
-    var exportedAudioURL: URL? = nil
+    var convertedM4AAudioURL: URL? = nil
     var selectedFormat: String = "m4a"
-    ///
     var documentsDirectory: URL!
     
     let disposeBag = DisposeBag()
@@ -33,8 +33,8 @@ class VideoToAudioViewController: UIViewController {
     @IBOutlet var addButton: UIButton!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var playButton: UIButton!
-    @IBOutlet var backwardButton: UIButton!
     @IBOutlet var forwardButton: UIButton!
+    @IBOutlet var backwardButton: UIButton!
     @IBOutlet var formatPopupButton: UIButton!
     @IBOutlet var thumbnailImageView: UIImageView!
     @IBOutlet var exportButton: UIButton!
@@ -48,22 +48,11 @@ class VideoToAudioViewController: UIViewController {
         initUI()
         initData()
         action()
-        
-        // 0.1초 마다 updateAudioProgressUISlider 호출해서 audioProgressUISlider.value 업데이트
-        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateAudioProgressUISlider), userInfo: nil, repeats: true)
-        
-        presentPicker()
-    }
-    
-    // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
-    @objc func updateAudioProgressUISlider() {
-        audioProgressUISlider.value = Float(AudioManager.shared.audioPlayer?.currentTime ?? 0)
+        presentImagePicker(mode: [ UTType.movie.identifier ])
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         AudioManager.shared.stopMusic()
-//        nameTextField.delegate = nil
-//        AudioManager.shared.audioPlayer?.delegate =  nil
     }
     
     // MARK: - initUI
@@ -82,11 +71,96 @@ class VideoToAudioViewController: UIViewController {
         // thumbnailImageView
         thumbnailImageView.layer.cornerRadius = 8
         
+        // audioPlayer
+//        AudioManager.shared.audioPlayer!.delegate = self
+    }
+    
+    // MARK: - initData
+    private func initData() {
+        // documentsDirectory. 앱의 Document 디렉토리 경로를 가져옴
+        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            self.documentsDirectory = documentsDirectory
+        } else {
+            print("documentsDirectory 오류")
+        }
+        
+        // nameTextField
+        nameTextField.text = "\(DateManager.shared.getCurrentLocalizedDateTimeString())"
+    }
+    
+    // MARK: - action
+    private func action() {
+        // 0.1초 마다 updateAudioProgressUISlider 호출해서 audioProgressUISlider.value 업데이트
+        Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(updateAudioProgressUISlider), userInfo: nil, repeats: true)
+        
+        // 뒤로가기
+        backButton.rx.tap
+            .subscribe { _ in
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        // 동영상 선택
+        addButton.rx.tap
+            .subscribe { _ in
+                AudioManager.shared.stopMusic()
+//                self.presentPicker()
+                self.presentImagePicker(mode: [ UTType.movie.identifier ])
+
+            }
+            .disposed(by: disposeBag)
+        
         // 팝업버튼 등록
         setPopupButton()
         
-        // audioPlayer
-//        AudioManager.shared.audioPlayer!.delegate = self
+        // 재생, 중지
+        playButton.rx.tap
+            .subscribe { _ in
+                // audioOutputURL이 nil인 경우 재생하지 않도록 확인
+                if self.convertedM4AAudioURL == nil {
+                    print("오디오 파일이 존재하지 않습니다.")
+                    return
+                }
+                self.togglePlayButton()
+            }
+            .disposed(by: disposeBag)
+        
+        // 재생바 이전으로 가기
+        forwardButton.rx.tap
+            .subscribe { _ in
+                guard let audioPlayer = AudioManager.shared.audioPlayer else {
+                    print("audioPlayer 없음")
+                    return
+                }
+                let currentTime = audioPlayer.currentTime - 5.0
+                audioPlayer.currentTime = currentTime < 0 ? 0 : currentTime
+            }
+            .disposed(by: disposeBag)
+        
+        // 재생바 나중으로 가기
+        backwardButton.rx.tap
+            .subscribe { _ in
+                guard let audioPlayer = AudioManager.shared.audioPlayer else {
+                    print("audioPlayer 없음")
+                    return
+                }
+                let currentTime = audioPlayer.currentTime + 5.0
+                if currentTime < audioPlayer.duration {
+                    audioPlayer.currentTime = currentTime
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        exportButton.rx.tap
+            .subscribe { _ in
+                self.exportAudio()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    // 타이머에 의해 0.1초 마다 실행되어 audioProgressUISlider.value 업데이트
+    @objc func updateAudioProgressUISlider() {
+        audioProgressUISlider.value = Float(AudioManager.shared.audioPlayer?.currentTime ?? 0)
     }
     
     /// 팝업버튼 등록
@@ -115,90 +189,29 @@ class VideoToAudioViewController: UIViewController {
         formatPopupButton.changesSelectionAsPrimaryAction = true
     }
     
-    // MARK: - initData
-    private func initData() {
-        // documentsDirectory. 앱의 Document 디렉토리 경로를 가져옴
-        if let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            self.documentsDirectory = documentsDirectory
-        } else {
-            print("documentsDirectory 오류")
-        }
-        
-        // nameTextField
-        nameTextField.text = "\(DateManager.shared.getCurrentLocalizedDateTimeString())"
-    }
-    
-    // MARK: - action
-    private func action() {
-        // 뒤로가기
-        backButton.rx.tap
-            .subscribe { _ in
-                self.navigationController?.popViewController(animated: true)
-            }
-            .disposed(by: disposeBag)
-        
-        // 동영상 선택
-        addButton.rx.tap
-            .subscribe { _ in
-                AudioManager.shared.stopMusic()
-                self.presentPicker()
-            }
-            .disposed(by: disposeBag)
-        
-        // 재생, 중지
-        playButton.rx.tap
-            .subscribe { _ in
-                // audioOutputURL이 nil인 경우 재생하지 않도록 확인
-                if self.convertedAudioURL == nil {
-                    print("오디오 파일이 존재하지 않습니다.")
-                    return
-                }
-                self.togglePlayButton()
-            }
-            .disposed(by: disposeBag)
-        
-        // 재생바 뒤로가기
-        backwardButton.rx.tap
-            .subscribe { _ in
-                guard let audioPlayer = AudioManager.shared.audioPlayer else {
-                    print("audioPlayer 없음")
-                    return
-                }
-                let currentTime = audioPlayer.currentTime - 5.0
-                audioPlayer.currentTime = currentTime < 0 ? 0 : currentTime
-            }
-            .disposed(by: disposeBag)
-        
-        // 재생바 앞으로 가기
-        backwardButton.rx.tap
-            .subscribe { _ in
-                guard let audioPlayer = AudioManager.shared.audioPlayer else {
-                    print("audioPlayer 없음")
-                    return
-                }
-                let currentTime = audioPlayer.currentTime + 5.0
-                if currentTime < audioPlayer.duration {
-                    audioPlayer.currentTime = currentTime
-                }
-            }
-            .disposed(by: disposeBag)
-    }
-    
     private func togglePlayButton() {
         // 재생 여부 토글 후 버튼이미지 변경
         if AudioManager.shared.audioPlayer?.isPlaying == true {
             AudioManager.shared.pauseMusic()
-            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
-            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
-            playButton.setImage(image, for: .normal)
+            setPlayButtonImage(playingState: false)
         } else {
             AudioManager.shared.playMusic()
             // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
             if let audioPlayer = AudioManager.shared.audioPlayer {
                 self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
             }
+            setPlayButtonImage(playingState: true)
+        }
+    }
+    
+    private func setPlayButtonImage(playingState: Bool) {
+        if playingState {
             let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
             let image = UIImage(systemName: "pause.fill", withConfiguration: imageConfig)
+            playButton.setImage(image, for: .normal)
+        } else {
+            let imageConfig = UIImage.SymbolConfiguration(pointSize: 40)
+            let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
             playButton.setImage(image, for: .normal)
         }
     }
@@ -250,48 +263,56 @@ class VideoToAudioViewController: UIViewController {
         }
     }
     
-    
-    // 슬라이더 이동시 호출
-    @IBAction func audioProgressSliderChanged(_ sender: Any) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         print("\(type(of: self)) - \(#function)")
-//
-//        if let audioPlayer = AudioManager.shared.audioPlayer {
-//            // audioPlayer 음원 길이로 audioProgressUISlider 범위 갱신
-//            self.audioProgressUISlider.maximumValue = Float(audioPlayer.duration)
-//
-//            if audioPlayer.isPlaying {
-////                AudioManager.shared.pauseMusic()
-//                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
-//                print(audioPlayer.currentTime)
-////                AudioManager.shared.playMusic()
-//            }
-//            else {
-//                print(audioPlayer.currentTime)
-//                audioPlayer.currentTime = TimeInterval(audioProgressUISlider.value)
-//            }
-//        }
-//        else {
-//            print("audioPlayer = nil")
-//        }
+        
+        self.view.endEditing(true)
+   }
+    
+    // MARK: - bind
+    private func bind() {
+        
+    }
+    
+    // MARK: - export 관련 로직
+    private func presentActivityVC(exportingURL: URL) {
+        print("\(type(of: self)) - \(#function)")
+
+        DispatchQueue.main.async {
+            let activityViewController = UIActivityViewController(activityItems: [exportingURL], applicationActivities: nil)
+
+            // 아이폰에서 모달,아이패드에서 팝오버 
+            if let popoverPresentationController = activityViewController.popoverPresentationController {
+                popoverPresentationController.sourceView = self.view // 팝오버의 출발점 뷰
+                popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0) // 출발점 위치
+                popoverPresentationController.permittedArrowDirections = [] // 화살표 방향
+            }
+
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
 
-    @IBAction func ExportButtonClicked(_ sender: Any) {
+    
+    private func exportAudio() {
         print("\(type(of: self)) - \(#function)")
 
-        if convertedAudioURL == nil {
-            print("공유할 오디오 파일 없음.")
+        guard let convertedM4AAudioURL = self.convertedM4AAudioURL else {
+            print("convertedM4AAudioURL 없음")
             return
         }
         
-        // 오디오 파일을 저장할 URL 생성
-        self.exportedAudioURL = documentsDirectory.appendingPathComponent(nameTextField.text!).appendingPathExtension(selectedFormat)
-        // 두 확장자 같으면 바로 반환
-        if convertedAudioURL == exportedAudioURL {
-            presentActivityVC()
+        // 다른 형식일 경우
+        let exportingAudioURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!)").appendingPathExtension(selectedFormat)
+        print("exportingAudioURL:", exportingAudioURL, "\nselectedFormat:", selectedFormat)
+        
+        // 형식 m4a면 그대로 추출
+        if convertedM4AAudioURL == exportingAudioURL {
+            print("이름, 확장자 같음. 바로 export")
+            presentActivityVC(exportingURL: convertedM4AAudioURL)
             return
         }
         
-        // 컨버터 설정&실행
+        // FormatConverter 옵션 설정
         var options = FormatConverter.Options()
         switch selectedFormat {
         case "m4a":
@@ -303,32 +324,19 @@ class VideoToAudioViewController: UIViewController {
         }
         options.sampleRate = 48000
         options.bitDepth = 24
-        let converter = FormatConverter(inputURL: convertedAudioURL!, outputURL: exportedAudioURL!, options: options)
+        
+        // FormatConverter 실행
+        let converter = FormatConverter(inputURL: convertedM4AAudioURL, outputURL: exportingAudioURL, options: options)
         DispatchQueue.global().async {
             converter.start { error in
                 if let error = error {
-                    print("\(#function) - 컨버터 오류", error.localizedDescription)
+                    print("exportAudio", error.localizedDescription)
                     return
                 }
-                DispatchQueue.main.async{
-                    print("\(#function) - 컨버터 성공", self.exportedAudioURL!)
-                    self.presentActivityVC()
-                }
+                print("\(#function) 성공: \(exportingAudioURL)")
+                self.presentActivityVC(exportingURL: exportingAudioURL)
             }
         }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-        print("\(type(of: self)) - \(#function)")
-        
-        self.view.endEditing(true)
-   }
-    
-    private func presentActivityVC() {
-        print("\(type(of: self)) - \(#function)")
-
-        let activityViewController = UIActivityViewController(activityItems: [self.exportedAudioURL!], applicationActivities: nil)
-        self.present(activityViewController, animated: true, completion: nil)
     }
     
 }
@@ -352,7 +360,6 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         print("\(type(of: self)) - \(#function)")
         
-        fileName = nameTextField.text!
         picker.dismiss(animated: true, completion: nil)
         guard let result = results.first else {
             return
@@ -386,8 +393,10 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
                 print(err!.localizedDescription)
                 return
             }
+            // 뷰컨트롤러에 비디오 URL 저장
+            self.videoURL = videoURL
             print("loadFileRepresentation 성공")
-            self.videoURLToAudio(videoURL: videoURL)
+            self.videoURLToAudio(videoURL: videoURL, format: self.m4a)
             self.setThumbnailImage(videoURL: videoURL)
         }
     }
@@ -402,39 +411,40 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
                 print(err!.localizedDescription)
                 return
             }
+            self.videoURL = videoURL
             print("loadFileRepresentation 성공")
-            self.videoURLToAudio(videoURL: videoURL)
+            self.videoURLToAudio(videoURL: videoURL, format: self.m4a)
             self.setThumbnailImage(videoURL: videoURL)
         }
     }
     
-    private func videoURLToAudio(videoURL: URL) {
+    private func videoURLToAudio(videoURL: URL, format: String) {
         print("\(type(of: self)) - \(#function) videoURL: \(String(describing: videoURL))")
 
-        // 뷰컨트롤러에 비디오 URL 저장
-        self.videoURL = videoURL
         // 비디오로 AVAsset 생성
         let asset = AVAsset(url: videoURL)
+        print("fileName:", fileName)
         // 오디오 파일을 저장할 URL 생성
-        self.convertedAudioURL = documentsDirectory.appendingPathComponent("\(fileName).m4a")
+        self.convertedM4AAudioURL = documentsDirectory.appendingPathComponent("\(fileName).\(format)")
         // 기존 파일 삭제
-        deleteFileByURL(url: convertedAudioURL!)
+        deleteFileByURL(url: convertedM4AAudioURL!)
         // 생성한 url에 오디오파일 저장
-        asset.saveAudioFileToURL(self.convertedAudioURL!) { (success, error) in
+        asset.saveAudioFileToURL(self.convertedM4AAudioURL!) { (success, error) in
             if success == false {
                 print("saveAudioFileToURL 실패: \(error?.localizedDescription ?? "알 수 없는 오류")")
                 return
             }
-            print("saveAudioFileToURL 성공 \(String(describing: self.convertedAudioURL)) ")
+            print("saveAudioFileToURL 성공 \(String(describing: self.convertedM4AAudioURL)) ")
             // 재생 버튼 활성화 등 원하는 추가 작업 수행
             // 저장 완료 후 오디오 매니저에 음원 등록
-            AudioManager.shared.registerAudioByURL(url: self.convertedAudioURL!)
+            AudioManager.shared.registerAudioByURL(url: self.convertedM4AAudioURL!)
+            AudioManager.shared.audioPlayer?.delegate = self
         }
     }
     
     /// url에 있는 파일 삭제
     func deleteFileByURL(url: URL) {
-        print("\(type(of: self)) - \(#function)")
+        print("\(type(of: self)) - \(#function) \(url)")
 
         // 중복 체크해서 이미 있으면 파일 삭제
         if FileManager.default.fileExists(atPath: url.path) {
@@ -483,6 +493,48 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
     
 }
 
+// MARK: - UIImagePickerController
+extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func presentImagePicker(mode: [String]) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.mediaTypes = mode
+        imagePicker.videoExportPreset = AVAssetExportPresetPassthrough
+        // 동영상 품질 설정 (high, medium, low 중 선택)
+        //        imagePicker.videoQuality = .typeHigh
+        // 사진 라이브러리에서 선택
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // 이미지 피커 컨트롤러에서 이미지나 동영상을 선택한 후 호출되는 델리게이트 메서드
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("\(type(of: self)) - \(#function)")
+        
+        fileName = nameTextField.text!
+        picker.dismiss(animated: true, completion: nil)
+        
+        // 미디어 타입이 동영상인지 확인
+        guard let mediaType = info[.mediaType] as? String else {
+            print("미디어 타입 동영상 아님")
+            return
+        }
+        // 미디어 타입이 동영상이 아니면 함수 종료
+        guard mediaType == UTType.movie.identifier else {
+            print("미디어 타입 동영상 아님")
+            return
+        }
+        // 동영상 URL을 가져올 수 있는지 확인
+        guard let videoUrl = info[.mediaURL] as? URL else {
+            print("url 추출 실패")
+            return
+        }
+        self.videoURLToAudio(videoURL: videoUrl, format: m4a)
+        self.setThumbnailImage(videoURL: videoUrl)
+    }
+}
+
 // MARK: - AVAudioPlayerDelegate
 extension VideoToAudioViewController: AVAudioPlayerDelegate {
     
@@ -490,9 +542,7 @@ extension VideoToAudioViewController: AVAudioPlayerDelegate {
         print("\(type(of: self)) - \(#function)")
         
         // 오디오 재생 종료시 버튼 모양 변경
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 50)
-        let image = UIImage(systemName: "play.fill", withConfiguration: imageConfig)
-        playButton.setImage(image, for: .normal)
+        setPlayButtonImage(playingState: false)
     }
 }
 

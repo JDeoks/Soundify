@@ -11,6 +11,7 @@ import AVKit
 import RxSwift
 import RxCocoa
 import RxGesture
+import Firebase
 
 class MainViewController: UIViewController {
     
@@ -22,6 +23,12 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+          AnalyticsParameterItemID: "id-\(title!)",
+          AnalyticsParameterItemName: title!,
+          AnalyticsParameterContentType: "cont",
+        ])
         
         print(Locale.current.identifier)
         print(TimeZone.current.identifier)

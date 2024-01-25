@@ -7,12 +7,14 @@
 
 import UIKit
 import AVFAudio
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
+        
         // Override point for customization after application launch.
         
         // 무음 모드에서 소리 재생 가능하도록 설정
