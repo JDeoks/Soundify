@@ -20,7 +20,6 @@ class VideoToAudioViewController: UIViewController {
     
     let m4a = "m4a"
     let wav = "wav"
-    
     var fileName: String = ""
     var videoURL: URL? = nil
     /// 받은 동영상에서 바꾼 m4a
@@ -29,6 +28,8 @@ class VideoToAudioViewController: UIViewController {
     var documentsDirectory: URL!
     
     let disposeBag = DisposeBag()
+    
+    lazy var loadingView = LoadingIndicatorView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
     
     @IBOutlet var backButton: UIButton!
     @IBOutlet var addButton: UIButton!
@@ -99,6 +100,7 @@ class VideoToAudioViewController: UIViewController {
         // 뒤로가기
         backButton.rx.tap
             .subscribe { _ in
+                HapticManager.shared.triggerImpact()
                 self.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
@@ -108,8 +110,8 @@ class VideoToAudioViewController: UIViewController {
             .subscribe { _ in
                 AudioManager.shared.stopMusic()
 //                self.presentPicker()
+                HapticManager.shared.triggerImpact()
                 self.presentImagePicker(mode: [ UTType.movie.identifier ])
-
             }
             .disposed(by: disposeBag)
         
@@ -156,6 +158,8 @@ class VideoToAudioViewController: UIViewController {
         
         exportButton.rx.tap
             .subscribe { _ in
+                HapticManager.shared.triggerImpact()
+                self.view.addSubview(self.loadingView)
                 self.exportAudio()
             }
             .disposed(by: disposeBag)
@@ -181,6 +185,7 @@ class VideoToAudioViewController: UIViewController {
         // 키보드 툴바 버튼
         hideKeyboardButton.rx.tap
             .subscribe { _ in
+                HapticManager.shared.triggerImpact()
                 self.view.endEditing(true)
             }
             .disposed(by: disposeBag)
@@ -194,8 +199,10 @@ class VideoToAudioViewController: UIViewController {
     /// 팝업버튼 등록
     func setPopupButton() {
         print("\(type(of: self)) - \(#function)")
-
+        
         let optionClosure = {(action : UIAction) in
+            AudioManager.shared.stopMusic()
+
             switch action.title {
             case ".m4a" :
                 self.selectedFormat = "m4a"
@@ -307,6 +314,8 @@ class VideoToAudioViewController: UIViewController {
         print("\(type(of: self)) - \(#function)")
 
         DispatchQueue.main.async {
+            self.loadingView.removeFromSuperview()
+
             let activityViewController = UIActivityViewController(activityItems: [exportingURL], applicationActivities: nil)
 
             // 아이폰에서 모달,아이패드에서 팝오버
@@ -325,10 +334,12 @@ class VideoToAudioViewController: UIViewController {
         print("\(type(of: self)) - \(#function)")
 
         guard let convertedM4AAudioURL = self.convertedM4AAudioURL else {
+            showToast(message: "No video selected", keyboardHeight: 0)
             print("convertedM4AAudioURL 없음")
+            self.loadingView.removeFromSuperview()
             return
         }
-        
+                
         // 다른 형식일 경우
         let exportingAudioURL = documentsDirectory.appendingPathComponent("\(nameTextField.text!)").appendingPathExtension(selectedFormat)
         print("exportingAudioURL:", exportingAudioURL, "\nselectedFormat:", selectedFormat)
@@ -357,8 +368,10 @@ class VideoToAudioViewController: UIViewController {
         let converter = FormatConverter(inputURL: convertedM4AAudioURL, outputURL: exportingAudioURL, options: options)
         DispatchQueue.global().async {
             converter.start { error in
+                
                 if let error = error {
                     print("exportAudio", error.localizedDescription)
+                    self.loadingView.removeFromSuperview()
                     return
                 }
                 print("\(#function) 성공: \(exportingAudioURL)")

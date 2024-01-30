@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A215E9F2B6933D3005B9212 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A215E9E2B6933D3005B9212 /* GoogleService-Info-Dev.plist */; };
+		2A215EA12B695872005B9212 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA02B695872005B9212 /* SettingsViewController.swift */; };
+		2A215EA42B695A94005B9212 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA22B695A94005B9212 /* SettingsTableViewCell.swift */; };
+		2A215EA52B695A94005B9212 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */; };
 		2A27462F2B617165007D5831 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A27462E2B617165007D5831 /* GoogleService-Info.plist */; };
 		2A2746322B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746312B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		2A2746382B6171A5007D5831 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746372B6171A5007D5831 /* FirebaseAuth */; };
@@ -22,6 +26,9 @@
 		2A53DB832A82C4BA004BCA79 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53DB822A82C4BA004BCA79 /* DateManager.swift */; };
 		2A7BD12C2B62B9B400EC72A8 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 2A7BD12B2B62B9B400EC72A8 /* FirebaseRemoteConfig */; };
 		2A7BD12E2B62C1F400EC72A8 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD12D2B62C1F400EC72A8 /* UIViewController+.swift */; };
+		2A7BD1302B62DB7500EC72A8 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD12F2B62DB7500EC72A8 /* LoadingIndicatorView.swift */; };
+		2A7BD1332B62DBBF00EC72A8 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD1322B62DBBF00EC72A8 /* ColorManager.swift */; };
+		2A7BD1352B62E13D00EC72A8 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD1342B62E13D00EC72A8 /* HapticManager.swift */; };
 		2AA101D72A7EAA9F00A88152 /* VideoToAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA101D62A7EAA9F00A88152 /* VideoToAudioViewController.swift */; };
 		2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */; };
 		2AB29B3E2A7E6C6900EC52B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB29B3D2A7E6C6900EC52B2 /* SceneDelegate.swift */; };
@@ -37,6 +44,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A215E9E2B6933D3005B9212 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
+		2A215EA02B695872005B9212 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2A215EA22B695A94005B9212 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		2A27462E2B617165007D5831 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A27463C2B62B781007D5831 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		2A354E132A7FC8170014F173 /* AVAsset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+.swift"; sourceTree = "<group>"; };
@@ -46,6 +57,9 @@
 		2A53DB572A8112C7004BCA79 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		2A53DB822A82C4BA004BCA79 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2A7BD12D2B62C1F400EC72A8 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		2A7BD12F2B62DB7500EC72A8 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
+		2A7BD1322B62DBBF00EC72A8 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		2A7BD1342B62E13D00EC72A8 /* HapticManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		2AA101D62A7EAA9F00A88152 /* VideoToAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoToAudioViewController.swift; sourceTree = "<group>"; };
 		2AB29B382A7E6C6900EC52B2 /* Soundify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A215EA62B695A9E005B9212 /* SettingsVC */ = {
+			isa = PBXGroup;
+			children = (
+				2A215EA22B695A94005B9212 /* SettingsTableViewCell.swift */,
+				2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */,
+			);
+			path = SettingsVC;
+			sourceTree = "<group>";
+		};
 		2A354E122A7FC7E30014F173 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +121,8 @@
 				2A354E162A7FD2110014F173 /* AudioManager.swift */,
 				2A53DB822A82C4BA004BCA79 /* DateManager.swift */,
 				2A27463C2B62B781007D5831 /* ConfigManager.swift */,
+				2A7BD1322B62DBBF00EC72A8 /* ColorManager.swift */,
+				2A7BD1342B62E13D00EC72A8 /* HapticManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -108,6 +133,15 @@
 				2A354E1B2A8007420014F173 /* AudioFormat.swift */,
 			);
 			path = Enum;
+			sourceTree = "<group>";
+		};
+		2A7BD1312B62DB7A00EC72A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A215EA62B695A9E005B9212 /* SettingsVC */,
+				2A7BD12F2B62DB7500EC72A8 /* LoadingIndicatorView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2AA7083C2B61558300F77C3C /* Frameworks */ = {
@@ -141,6 +175,7 @@
 				2AB29B3B2A7E6C6900EC52B2 /* AppDelegate.swift */,
 				2AB29B3D2A7E6C6900EC52B2 /* SceneDelegate.swift */,
 				2AB29B512A7EA65100EC52B2 /* Controllers */,
+				2A7BD1312B62DB7A00EC72A8 /* Views */,
 				2A354E152A7FD1B20014F173 /* Managers */,
 				2A354E122A7FC7E30014F173 /* Extentions */,
 				2A354E1A2A8006BE0014F173 /* Enum */,
@@ -148,6 +183,7 @@
 				2AB29B462A7E6C6B00EC52B2 /* LaunchScreen.storyboard */,
 				2AB29B492A7E6C6B00EC52B2 /* Info.plist */,
 				2A27462E2B617165007D5831 /* GoogleService-Info.plist */,
+				2A215E9E2B6933D3005B9212 /* GoogleService-Info-Dev.plist */,
 			);
 			path = Soundify;
 			sourceTree = "<group>";
@@ -158,6 +194,7 @@
 				2AB29B3F2A7E6C6900EC52B2 /* MainViewController.swift */,
 				2AA101D62A7EAA9F00A88152 /* VideoToAudioViewController.swift */,
 				2ACCC3DF2AB87A49009FAB7A /* VideoToGifViewController.swift */,
+				2A215EA02B695872005B9212 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -242,7 +279,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A215EA52B695A94005B9212 /* SettingsTableViewCell.xib in Resources */,
 				2A27462F2B617165007D5831 /* GoogleService-Info.plist in Resources */,
+				2A215E9F2B6933D3005B9212 /* GoogleService-Info-Dev.plist in Resources */,
 				2AB29B482A7E6C6B00EC52B2 /* LaunchScreen.storyboard in Resources */,
 				2AB29B452A7E6C6B00EC52B2 /* Assets.xcassets in Resources */,
 				2AB29B432A7E6C6900EC52B2 /* Main.storyboard in Resources */,
@@ -258,15 +297,20 @@
 			files = (
 				2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */,
 				2A53DB832A82C4BA004BCA79 /* DateManager.swift in Sources */,
+				2A215EA42B695A94005B9212 /* SettingsTableViewCell.swift in Sources */,
+				2A7BD1352B62E13D00EC72A8 /* HapticManager.swift in Sources */,
 				2AA101D72A7EAA9F00A88152 /* VideoToAudioViewController.swift in Sources */,
 				2AB29B402A7E6C6900EC52B2 /* MainViewController.swift in Sources */,
+				2A215EA12B695872005B9212 /* SettingsViewController.swift in Sources */,
 				2ACCC3E02AB87A49009FAB7A /* VideoToGifViewController.swift in Sources */,
 				2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */,
+				2A7BD1332B62DBBF00EC72A8 /* ColorManager.swift in Sources */,
 				2A354E142A7FC8170014F173 /* AVAsset+.swift in Sources */,
 				2A354E192A8002790014F173 /* UITextField+.swift in Sources */,
 				2AB29B3E2A7E6C6900EC52B2 /* SceneDelegate.swift in Sources */,
 				2A7BD12E2B62C1F400EC72A8 /* UIViewController+.swift in Sources */,
 				2A354E1C2A8007420014F173 /* AudioFormat.swift in Sources */,
+				2A7BD1302B62DB7500EC72A8 /* LoadingIndicatorView.swift in Sources */,
 				2A53DB582A8112C7004BCA79 /* UIImage+.swift in Sources */,
 				2A27463D2B62B781007D5831 /* ConfigManager.swift in Sources */,
 			);
@@ -296,7 +340,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		2AB29B4A2A7E6C6B00EC52B2 /* Debug */ = {
+		2AB29B4A2A7E6C6B00EC52B2 /* Dev */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -355,9 +399,9 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = Dev;
 		};
-		2AB29B4B2A7E6C6B00EC52B2 /* Release */ = {
+		2AB29B4B2A7E6C6B00EC52B2 /* Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -410,9 +454,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Production;
 		};
-		2AB29B4D2A7E6C6B00EC52B2 /* Debug */ = {
+		2AB29B4D2A7E6C6B00EC52B2 /* Dev */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -422,6 +466,42 @@
 				DEVELOPMENT_TEAM = 39JATSZXJT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Soundify/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SoundifyDev;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "App requires access to photos and videos, no data will be sent to the server.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Deok.Soundify.Dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Dev;
+		};
+		2AB29B4E2A7E6C6B00EC52B2 /* Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 39JATSZXJT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Soundify/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Soundify;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "App requires access to photos and videos, no data will be sent to the server.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -444,41 +524,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-			name = Debug;
-		};
-		2AB29B4E2A7E6C6B00EC52B2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 39JATSZXJT;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Soundify/Info.plist;
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "App requires access to photos and videos, no data will be sent to the server.";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Deok.Soundify;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
+			name = Production;
 		};
 /* End XCBuildConfiguration section */
 
@@ -486,20 +532,20 @@
 		2AB29B332A7E6C6900EC52B2 /* Build configuration list for PBXProject "Soundify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AB29B4A2A7E6C6B00EC52B2 /* Debug */,
-				2AB29B4B2A7E6C6B00EC52B2 /* Release */,
+				2AB29B4A2A7E6C6B00EC52B2 /* Dev */,
+				2AB29B4B2A7E6C6B00EC52B2 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Production;
 		};
 		2AB29B4C2A7E6C6B00EC52B2 /* Build configuration list for PBXNativeTarget "Soundify" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AB29B4D2A7E6C6B00EC52B2 /* Debug */,
-				2AB29B4E2A7E6C6B00EC52B2 /* Release */,
+				2AB29B4D2A7E6C6B00EC52B2 /* Dev */,
+				2AB29B4E2A7E6C6B00EC52B2 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
 

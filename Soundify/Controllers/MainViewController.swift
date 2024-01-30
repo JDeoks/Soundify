@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    @IBOutlet var settingButton: UIButton!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var videoToAudioViewButton: UIView!
     @IBOutlet var videoToGifViewButton: UIView!
@@ -65,6 +66,7 @@ class MainViewController: UIViewController {
         videoToAudioViewButton.rx.tapGesture()
             .when(.recognized)
             .subscribe { _ in
+                HapticManager.shared.triggerImpact()
                 let v2a = self.storyboard?.instantiateViewController(identifier: "Video2AudioViewController") as! VideoToAudioViewController
                 self.navigationController?.pushViewController(v2a, animated: true)
             }
@@ -74,8 +76,17 @@ class MainViewController: UIViewController {
         videoToGifViewButton.rx.tapGesture()
             .when(.recognized)
             .subscribe { _ in
+                HapticManager.shared.triggerImpact()
                 let v2a = self.storyboard?.instantiateViewController(identifier: "Video2AudioViewController") as! VideoToAudioViewController
                 self.navigationController?.pushViewController(v2a, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        settingButton.rx.tap
+            .subscribe { _ in
+                HapticManager.shared.triggerImpact()
+                let settingsVC = self.storyboard?.instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
+                self.navigationController?.pushViewController(settingsVC, animated: true)
             }
             .disposed(by: disposeBag)
     }
