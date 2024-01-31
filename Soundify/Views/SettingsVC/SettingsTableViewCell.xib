@@ -11,15 +11,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="214" id="KGk-i7-Jjw" customClass="SettingsTableViewCell" customModule="PiCo" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="214" id="KGk-i7-Jjw" customClass="SettingsTableViewCell" customModule="Soundify" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="696" height="214"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="696" height="214"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qMl-eG-AGk">
-                        <rect key="frame" x="20.000000000000007" y="87" width="122.66666666666669" height="40"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qMl-eG-AGk">
+                        <rect key="frame" x="20.000000000000007" y="87" width="111.66666666666669" height="40"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTS-XS-0xH">
                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -27,14 +27,14 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-IK-p0U">
                                         <rect key="frame" x="4" y="4" width="32" height="32"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" name="HighlightBlue"/>
+                                        <color key="tintColor" name="KeyboardToolBarButton"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="eXb-wT-6VT"/>
                                             <constraint firstAttribute="height" constant="32" id="vRf-jT-PY7"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" name="FloatButtonBackground"/>
+                                <color key="backgroundColor" name="KeyboardToolBar"/>
                                 <constraints>
                                     <constraint firstItem="f4f-IK-p0U" firstAttribute="leading" secondItem="VTS-XS-0xH" secondAttribute="leading" constant="4" id="9mD-Pr-3pv"/>
                                     <constraint firstItem="f4f-IK-p0U" firstAttribute="top" secondItem="VTS-XS-0xH" secondAttribute="top" constant="4" id="UQt-Hb-DZT"/>
@@ -43,8 +43,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정 관리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bED-gt-BAh">
-                                <rect key="frame" x="56.000000000000007" y="9.3333333333333304" width="66.666666666666686" height="21.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <rect key="frame" x="52" y="10.333333333333327" width="59.666666666666657" height="19.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -53,7 +53,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHZ-01-NBO">
                         <rect key="frame" x="676" y="107" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" name="SecondText"/>
+                        <color key="textColor" name="KeyboardToolBarButton"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -78,14 +78,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="FloatButtonBackground">
-            <color red="0.3843137254901961" green="0.3843137254901961" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="KeyboardToolBar">
+            <color red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="HighlightBlue">
-            <color red="0.51372549019607838" green="0.70588235294117652" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="SecondText">
-            <color red="0.69019607843137254" green="0.69019607843137254" blue="0.69019607843137254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="KeyboardToolBarButton">
+            <color red="0.29803921568627451" green="0.29803921568627451" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

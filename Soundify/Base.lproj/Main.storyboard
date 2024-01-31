@@ -50,7 +50,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdA-Wr-Gr0">
-                                        <rect key="frame" x="299" y="19.000000000000004" width="83" height="34.333333333333343"/>
+                                        <rect key="frame" x="299" y="19.000000000000004" width="87" height="34.333333333333343"/>
                                         <color key="tintColor" name="TitleWhite"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="gearshape" catalog="system"/>
@@ -59,7 +59,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="72" id="6em-8Z-HxG"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="8"/>
+                                <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="4"/>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3v0-MN-F6s">
                                 <rect key="frame" x="0.0" y="163" width="390" height="681"/>
@@ -269,9 +269,9 @@
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Psm-kf-7IN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Psm-kf-7IN">
                                 <rect key="frame" x="0.0" y="103" width="390" height="741"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="BackGroundWhite"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d4M-mi-CMU"/>
@@ -295,11 +295,46 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="drT-9n-Yx4" id="zmq-ay-3BY"/>
+                        <outlet property="menuTableView" destination="Psm-kf-7IN" id="D1S-LX-dA8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3TY-Cg-TDT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1063" y="761"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Eqy-cd-bPw">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pgr-zd-Cmh" customClass="WebViewController" customModule="Soundify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cMd-N6-1mY">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pA-gg-x9c">
+                                <rect key="frame" x="0.0" y="47" width="390" height="797"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JhO-RO-wse"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9pA-gg-x9c" secondAttribute="bottom" id="LIY-gr-IRR"/>
+                            <constraint firstItem="JhO-RO-wse" firstAttribute="trailing" secondItem="9pA-gg-x9c" secondAttribute="trailing" id="eHD-c5-Hv3"/>
+                            <constraint firstItem="9pA-gg-x9c" firstAttribute="top" secondItem="JhO-RO-wse" secondAttribute="top" id="k2y-zW-Egd"/>
+                            <constraint firstItem="9pA-gg-x9c" firstAttribute="leading" secondItem="JhO-RO-wse" secondAttribute="leading" id="lSo-xt-aeX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="9pA-gg-x9c" id="If1-2P-kMg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mgV-46-MQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1982" y="761"/>
         </scene>
         <!--Video2AudioViewController-->
         <scene sceneID="Gef-Yi-rmd">
