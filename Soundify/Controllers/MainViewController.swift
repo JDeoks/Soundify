@@ -39,6 +39,18 @@ class MainViewController: UIViewController {
         bind()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let hasCompletedInitialLaunch = UserDefaults.standard.bool(forKey: "hasCompletedInitialLaunch")
+        print("hasCompletedInitialLaunch:", hasCompletedInitialLaunch)
+        if !hasCompletedInitialLaunch {
+            let onboardingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OnboardingViewController") as! OnboardingViewController
+            onboardingVC.modalPresentationStyle = .overFullScreen
+            onboardingVC.modalTransitionStyle = .crossDissolve
+            self.present(onboardingVC, animated: false)
+            UserDefaults.standard.set(true, forKey: "hasCompletedInitialLaunch")
+        }
+    }
+    
     private func initUI() {
         // navigationController
         self.navigationController?.navigationBar.isHidden = true

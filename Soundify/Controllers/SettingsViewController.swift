@@ -30,6 +30,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         initUI()
+        action()
     }
     
     func initUI() {
@@ -109,7 +110,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 onboardingVC.modalPresentationStyle = .overFullScreen
                 onboardingVC.modalTransitionStyle = .crossDissolve
                 self.present(onboardingVC, animated: true)
-                // TODO: 튜토리얼 VC 추가
                 return
                 
             case 1:

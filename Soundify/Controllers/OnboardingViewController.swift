@@ -72,7 +72,7 @@ class OnboardingViewController: UIViewController {
             value: NSUnderlineStyle.single.rawValue,
             range: NSRange(location: 0, length: attributedString.length)
         )
-        let font = UIFont.systemFont(ofSize: 14)
+        let font = UIFont.systemFont(ofSize: 16)
         attributedString.addAttribute(
             NSAttributedString.Key.font,
             value: font,
@@ -95,7 +95,7 @@ class OnboardingViewController: UIViewController {
         onboardingPageControl.pageIndicatorTintColor = ColorManager.shared.keyboardToolBar
 
         // goNextButton
-        goNextButton.layer.cornerRadius = 4
+        goNextButton.layer.cornerRadius = 8
         goNextButton.titleLabel?.font = UIFont.systemFont(ofSize: 21, weight: .thin)
     }
     
@@ -194,6 +194,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
             cell.onboardingDescLabel.isHidden = false
             cell.onboardingDescLabel.text = onboardingDatas[idx][2]
         }
+        cell.layoutIfNeeded()
         
         // onboardingImageView
         cell.onboardingImageView.image = UIImage(named: onboardingDatas[indexPath.row][3])
