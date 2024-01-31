@@ -12,6 +12,9 @@
 		2A215EA42B695A94005B9212 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA22B695A94005B9212 /* SettingsTableViewCell.swift */; };
 		2A215EA52B695A94005B9212 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */; };
 		2A215EA82B695FFB005B9212 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA72B695FFB005B9212 /* WebViewController.swift */; };
+		2A215EAA2B6A4ED9005B9212 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA92B6A4ED9005B9212 /* OnboardingViewController.swift */; };
+		2A215EAF2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A215EAD2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib */; };
+		2A215EB02B6A87B5005B9212 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EAE2B6A87B5005B9212 /* OnboardingCollectionViewCell.swift */; };
 		2A27462F2B617165007D5831 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A27462E2B617165007D5831 /* GoogleService-Info.plist */; };
 		2A2746322B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746312B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		2A2746382B6171A5007D5831 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746372B6171A5007D5831 /* FirebaseAuth */; };
@@ -50,6 +53,9 @@
 		2A215EA22B695A94005B9212 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		2A215EA72B695FFB005B9212 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		2A215EA92B6A4ED9005B9212 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		2A215EAD2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingCollectionViewCell.xib; sourceTree = "<group>"; };
+		2A215EAE2B6A87B5005B9212 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		2A27462E2B617165007D5831 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A27463C2B62B781007D5831 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		2A354E132A7FC8170014F173 /* AVAsset+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAsset+.swift"; sourceTree = "<group>"; };
@@ -106,6 +112,15 @@
 			path = SettingsVC;
 			sourceTree = "<group>";
 		};
+		2A215EB12B6A87B9005B9212 /* OnboardingVC */ = {
+			isa = PBXGroup;
+			children = (
+				2A215EAE2B6A87B5005B9212 /* OnboardingCollectionViewCell.swift */,
+				2A215EAD2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib */,
+			);
+			path = OnboardingVC;
+			sourceTree = "<group>";
+		};
 		2A354E122A7FC7E30014F173 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				2A7BD12F2B62DB7500EC72A8 /* LoadingIndicatorView.swift */,
+				2A215EB12B6A87B9005B9212 /* OnboardingVC */,
 				2A215EA62B695A9E005B9212 /* SettingsVC */,
 			);
 			path = Views;
@@ -193,6 +209,7 @@
 		2AB29B512A7EA65100EC52B2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2A215EA92B6A4ED9005B9212 /* OnboardingViewController.swift */,
 				2AB29B3F2A7E6C6900EC52B2 /* MainViewController.swift */,
 				2AA101D62A7EAA9F00A88152 /* VideoToAudioViewController.swift */,
 				2ACCC3DF2AB87A49009FAB7A /* VideoToGifViewController.swift */,
@@ -286,6 +303,7 @@
 				2A27462F2B617165007D5831 /* GoogleService-Info.plist in Resources */,
 				2A215E9F2B6933D3005B9212 /* GoogleService-Info-Dev.plist in Resources */,
 				2AB29B482A7E6C6B00EC52B2 /* LaunchScreen.storyboard in Resources */,
+				2A215EAF2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib in Resources */,
 				2AB29B452A7E6C6B00EC52B2 /* Assets.xcassets in Resources */,
 				2AB29B432A7E6C6900EC52B2 /* Main.storyboard in Resources */,
 			);
@@ -303,8 +321,10 @@
 				2A53DB832A82C4BA004BCA79 /* DateManager.swift in Sources */,
 				2A215EA42B695A94005B9212 /* SettingsTableViewCell.swift in Sources */,
 				2A7BD1352B62E13D00EC72A8 /* HapticManager.swift in Sources */,
+				2A215EB02B6A87B5005B9212 /* OnboardingCollectionViewCell.swift in Sources */,
 				2AA101D72A7EAA9F00A88152 /* VideoToAudioViewController.swift in Sources */,
 				2AB29B402A7E6C6900EC52B2 /* MainViewController.swift in Sources */,
+				2A215EAA2B6A4ED9005B9212 /* OnboardingViewController.swift in Sources */,
 				2A215EA12B695872005B9212 /* SettingsViewController.swift in Sources */,
 				2ACCC3E02AB87A49009FAB7A /* VideoToGifViewController.swift in Sources */,
 				2AB29B3C2A7E6C6900EC52B2 /* AppDelegate.swift in Sources */,
@@ -482,7 +502,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Deok.Soundify.Dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -517,7 +537,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Deok.Soundify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

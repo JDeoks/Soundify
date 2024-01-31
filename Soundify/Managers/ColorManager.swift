@@ -20,4 +20,5 @@ class ColorManager {
     let lableBlack: UIColor! = UIColor(named: "LableBlack")
     let nabTabGray: UIColor! = UIColor(named: "NabTabGray")
     let titleWhite: UIColor! = UIColor(named: "TitleWhite") 
+    
 }

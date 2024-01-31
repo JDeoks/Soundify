@@ -7,6 +7,8 @@
 
 import UIKit
 import StoreKit
+import RxSwift
+import RxCocoa
 
 class SettingsViewController: UIViewController {
     
@@ -18,6 +20,8 @@ class SettingsViewController: UIViewController {
         "https://jdeoks.notion.site/Soundify-Privacy-Policy-137d33c63e29430297010685750c204e?pvs=4",
         "https://jdeoks.notion.site/Soundify-Open-Source-Licenses-d614f7fb105a4a67815c9567515dfd59?pvs=4"
     ]
+    
+    let disposeBag = DisposeBag()
     
     @IBOutlet var backButton: UIButton!
     @IBOutlet var menuTableView: UITableView!
@@ -35,6 +39,15 @@ class SettingsViewController: UIViewController {
         menuTableView.delegate = self
         let settingsTableViewCell = UINib(nibName: "SettingsTableViewCell", bundle: nil)
         menuTableView.register(settingsTableViewCell, forCellReuseIdentifier: "SettingsTableViewCell")
+    }
+    
+    func action() {
+        backButton.rx.tap
+            .subscribe { _ in
+                HapticManager.shared.triggerImpact()
+                self.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
 }
@@ -91,10 +104,16 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             switch indexPath.row {
             // 계정 관리
             case 0:
+                HapticManager.shared.triggerImpact()
+                let onboardingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OnboardingViewController") as! OnboardingViewController
+                onboardingVC.modalPresentationStyle = .overFullScreen
+                onboardingVC.modalTransitionStyle = .crossDissolve
+                self.present(onboardingVC, animated: true)
                 // TODO: 튜토리얼 VC 추가
                 return
                 
             case 1:
+                HapticManager.shared.triggerImpact()
                 rateApp()
             default:
                 return
