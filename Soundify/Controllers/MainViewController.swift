@@ -65,8 +65,6 @@ class MainViewController: UIViewController {
         // videoToGifViewButton
         videoToGifViewButton.layer.cornerRadius = 12
         
-        // TODO: - 구현
-        videoToGifViewButton.isHidden = true
     }
     
     private func initData() {
@@ -89,8 +87,8 @@ class MainViewController: UIViewController {
             .when(.recognized)
             .subscribe { _ in
                 HapticManager.shared.triggerImpact()
-                let v2a = self.storyboard?.instantiateViewController(identifier: "Video2AudioViewController") as! VideoToAudioViewController
-                self.navigationController?.pushViewController(v2a, animated: true)
+                let videoToGifVC = self.storyboard?.instantiateViewController(identifier: "VideoToGifViewController") as! VideoToGifViewController
+                self.navigationController?.pushViewController(videoToGifVC, animated: true)
             }
             .disposed(by: disposeBag)
         
