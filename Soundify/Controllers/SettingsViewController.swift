@@ -13,9 +13,9 @@ import RxCocoa
 class SettingsViewController: UIViewController {
     
     let menus = [
-        ["View Tutorial", "Rate the App"],
+        ["View Tutorial", "Rate the App", "Share the App"],
         ["Privacy Policy", "Open Source Licenses", "Version"]]
-    let menuImages = ["book.fill", "star.fill"]
+    let menuImages = ["book", "star", "square.and.arrow.up"]
     let urls = [
         "https://jdeoks.notion.site/Soundify-Privacy-Policy-137d33c63e29430297010685750c204e?pvs=4",
         "https://jdeoks.notion.site/Soundify-Open-Source-Licenses-d614f7fb105a4a67815c9567515dfd59?pvs=4"
@@ -103,7 +103,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         // 메인
         case 0:
             switch indexPath.row {
-            // 계정 관리
+            // 온보딩 보기
             case 0:
                 HapticManager.shared.triggerImpact()
                 let onboardingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "OnboardingViewController") as! OnboardingViewController
@@ -112,9 +112,18 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.present(onboardingVC, animated: true)
                 return
                 
+            // 앱 평가하기
             case 1:
                 HapticManager.shared.triggerImpact()
                 rateApp()
+                
+            case 2:
+                HapticManager.shared.triggerImpact()
+                let url = "https://apps.apple.com/kr/app/soundify/id6461084209?l=en-GB"
+                if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
+                    shareURL(url: url)
+                }
+                
             default:
                 return
             }
@@ -151,4 +160,23 @@ extension SettingsViewController: SKStoreProductViewControllerDelegate {
         self.present(productVC, animated: true, completion: nil)
     }
 
+}
+
+// MARK: - ShareSheet
+extension SettingsViewController {
+
+    private func shareURL(url: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+
+        // 아이패드에서 실행될 경우
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            if let popoverController = activityViewController.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+        }
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
 }

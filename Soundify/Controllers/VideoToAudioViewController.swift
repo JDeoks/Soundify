@@ -69,14 +69,11 @@ class VideoToAudioViewController: UIViewController {
         // formatPopupButton
         formatPopupButton.layer.cornerRadius = 8
         
-        // exportButton
-        exportButton.layer.cornerRadius = 8
-        
         // thumbnailImageView
         thumbnailImageView.layer.cornerRadius = 8
         
-        // audioPlayer
-//        AudioManager.shared.audioPlayer!.delegate = self
+        // exportButton
+        exportButton.layer.cornerRadius = 8
     }
     
     // MARK: - initData
@@ -502,6 +499,7 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
     /// 썸네일이미지 이미지뷰에 표시
     func setThumbnailImage(videoURL: URL) {
         print("\(type(of: self)) - \(#function) videoURL: \(String(describing: videoURL))")
+        
         getThumbnailImage(for: videoURL) { thumbnailImage in
             DispatchQueue.main.async {
                 self.thumbnailImageView.contentMode = .scaleAspectFill
@@ -538,6 +536,8 @@ extension VideoToAudioViewController: PHPickerViewControllerDelegate {
 extension VideoToAudioViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentImagePicker(mode: [String]) {
+        print("\(type(of: self)) - \(#function)")
+
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.mediaTypes = mode
