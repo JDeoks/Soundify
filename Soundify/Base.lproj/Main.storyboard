@@ -73,7 +73,7 @@
                                     <constraint firstAttribute="height" constant="56" id="3sM-Am-8s3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <color key="tintColor" name="KeyboardToolBar"/>
+                                <color key="tintColor" name="BackGroundWhite"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Next"/>
                             </button>
@@ -412,10 +412,10 @@
             </objects>
             <point key="canvasLocation" x="1063" y="761"/>
         </scene>
-        <!--Web View Controller-->
+        <!--WebViewController-->
         <scene sceneID="Eqy-cd-bPw">
             <objects>
-                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pgr-zd-Cmh" customClass="WebViewController" customModule="Soundify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" title="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pgr-zd-Cmh" customClass="WebViewController" customModule="Soundify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cMd-N6-1mY">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

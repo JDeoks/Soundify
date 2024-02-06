@@ -19,6 +19,7 @@
 		2A2746382B6171A5007D5831 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746372B6171A5007D5831 /* FirebaseAuth */; };
 		2A27463B2B62A08E007D5831 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A27463A2B62A08E007D5831 /* SnapKit */; };
 		2A27463D2B62B781007D5831 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A27463C2B62B781007D5831 /* ConfigManager.swift */; };
+		2A2AC8C62B72A0DF00CF14D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2AC8C52B72A0DF00CF14D2 /* FirebaseAnalytics */; };
 		2A354E142A7FC8170014F173 /* AVAsset+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E132A7FC8170014F173 /* AVAsset+.swift */; };
 		2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E162A7FD2110014F173 /* AudioManager.swift */; };
 		2A354E192A8002790014F173 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E182A8002790014F173 /* UITextField+.swift */; };
@@ -93,6 +94,7 @@
 				2A53DB812A82C445004BCA79 /* SwiftDate in Frameworks */,
 				2AC5E9DC2B582BF100A029F3 /* RxCocoa in Frameworks */,
 				2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */,
+				2A2AC8C62B72A0DF00CF14D2 /* FirebaseAnalytics in Frameworks */,
 				2A2746322B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				2AC5E9E42B582C3100A029F3 /* RxGesture in Frameworks */,
 				2AC5E9E12B582C1800A029F3 /* RxKeyboard in Frameworks */,
@@ -247,6 +249,7 @@
 				2A2746372B6171A5007D5831 /* FirebaseAuth */,
 				2A27463A2B62A08E007D5831 /* SnapKit */,
 				2A7BD12B2B62B9B400EC72A8 /* FirebaseRemoteConfig */,
+				2A2AC8C52B72A0DF00CF14D2 /* FirebaseAnalytics */,
 			);
 			productName = Soundify;
 			productReference = 2AB29B382A7E6C6900EC52B2 /* Soundify.app */;
@@ -669,6 +672,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A2746392B62A08E007D5831 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		2A2AC8C52B72A0DF00CF14D2 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A2746302B6171A4007D5831 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
 		2A53DB5A2A829CD5004BCA79 /* AudioKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -325,7 +325,6 @@ class VideoToAudioViewController: UIViewController {
             self.present(activityViewController, animated: true, completion: nil)
         }
     }
-
     
     private func exportAudio() {
         print("\(type(of: self)) - \(#function)")
