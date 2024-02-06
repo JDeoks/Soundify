@@ -115,7 +115,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             // 앱 평가하기
             case 1:
                 HapticManager.shared.triggerImpact()
-                rateApp()
+//                rateApp()
+                guard let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else { return }
+                SKStoreReviewController.requestReview(in: scene)
                 
             case 2:
                 HapticManager.shared.triggerImpact()

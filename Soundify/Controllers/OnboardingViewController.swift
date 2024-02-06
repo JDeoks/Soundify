@@ -124,7 +124,7 @@ class OnboardingViewController: UIViewController {
                 }
             }
             .disposed(by: disposeBag)
-        
+
         onboardingPageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
     }
     
@@ -202,7 +202,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.bounds.size
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
