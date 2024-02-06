@@ -96,7 +96,8 @@ class OnboardingViewController: UIViewController {
 
         // goNextButton
         goNextButton.layer.cornerRadius = 8
-        goNextButton.titleLabel?.font = UIFont.systemFont(ofSize: 21, weight: .thin)
+//        goNextButton.titleLabel?.font = UIFont.systemFont(ofSize: 21, weight: .thin)
+
     }
     
     func initData() {
@@ -155,7 +156,6 @@ class OnboardingViewController: UIViewController {
         } else {
             goNextButton.setTitle("Next", for: .normal)
         }
-        goNextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 21)
     }
 
 }
@@ -202,7 +202,7 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        return collectionView.bounds.size
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -228,4 +228,3 @@ extension OnboardingViewController: UICollectionViewDataSource, UICollectionView
     }
     
 }
-

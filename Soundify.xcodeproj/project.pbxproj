@@ -13,7 +13,6 @@
 		2A215EA52B695A94005B9212 /* SettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */; };
 		2A215EA82B695FFB005B9212 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA72B695FFB005B9212 /* WebViewController.swift */; };
 		2A215EAA2B6A4ED9005B9212 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EA92B6A4ED9005B9212 /* OnboardingViewController.swift */; };
-		2A215EAF2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A215EAD2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib */; };
 		2A215EB02B6A87B5005B9212 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A215EAE2B6A87B5005B9212 /* OnboardingCollectionViewCell.swift */; };
 		2A27462F2B617165007D5831 /* GoogleService-Info-Production.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A27462E2B617165007D5831 /* GoogleService-Info-Production.plist */; };
 		2A2746322B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 2A2746312B6171A4007D5831 /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -24,6 +23,7 @@
 		2A354E172A7FD2110014F173 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E162A7FD2110014F173 /* AudioManager.swift */; };
 		2A354E192A8002790014F173 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E182A8002790014F173 /* UITextField+.swift */; };
 		2A354E1C2A8007420014F173 /* AudioFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A354E1B2A8007420014F173 /* AudioFormat.swift */; };
+		2A456AA02B729B3500766445 /* OnboardingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A456A9F2B729B3500766445 /* OnboardingCollectionViewCell.xib */; };
 		2A53DB582A8112C7004BCA79 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53DB572A8112C7004BCA79 /* UIImage+.swift */; };
 		2A53DB5B2A829CD5004BCA79 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A53DB5A2A829CD5004BCA79 /* AudioKit */; };
 		2A53DB812A82C445004BCA79 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 2A53DB802A82C445004BCA79 /* SwiftDate */; };
@@ -54,7 +54,6 @@
 		2A215EA32B695A94005B9212 /* SettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsTableViewCell.xib; sourceTree = "<group>"; };
 		2A215EA72B695FFB005B9212 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		2A215EA92B6A4ED9005B9212 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		2A215EAD2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingCollectionViewCell.xib; sourceTree = "<group>"; };
 		2A215EAE2B6A87B5005B9212 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		2A27462E2B617165007D5831 /* GoogleService-Info-Production.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Production.plist"; sourceTree = "<group>"; };
 		2A27463C2B62B781007D5831 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		2A354E162A7FD2110014F173 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		2A354E182A8002790014F173 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		2A354E1B2A8007420014F173 /* AudioFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFormat.swift; sourceTree = "<group>"; };
+		2A456A9F2B729B3500766445 /* OnboardingCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OnboardingCollectionViewCell.xib; sourceTree = "<group>"; };
 		2A53DB572A8112C7004BCA79 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		2A53DB822A82C4BA004BCA79 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		2A7BD12D2B62C1F400EC72A8 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				2A215EAE2B6A87B5005B9212 /* OnboardingCollectionViewCell.swift */,
-				2A215EAD2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib */,
+				2A456A9F2B729B3500766445 /* OnboardingCollectionViewCell.xib */,
 			);
 			path = OnboardingVC;
 			sourceTree = "<group>";
@@ -303,8 +303,8 @@
 				2A215EA52B695A94005B9212 /* SettingsTableViewCell.xib in Resources */,
 				2A27462F2B617165007D5831 /* GoogleService-Info-Production.plist in Resources */,
 				2A215E9F2B6933D3005B9212 /* GoogleService-Info-Dev.plist in Resources */,
+				2A456AA02B729B3500766445 /* OnboardingCollectionViewCell.xib in Resources */,
 				2AB29B482A7E6C6B00EC52B2 /* LaunchScreen.storyboard in Resources */,
-				2A215EAF2B6A87B5005B9212 /* OnboardingCollectionViewCell.xib in Resources */,
 				2AB29B452A7E6C6B00EC52B2 /* Assets.xcassets in Resources */,
 				2AB29B432A7E6C6900EC52B2 /* Main.storyboard in Resources */,
 			);

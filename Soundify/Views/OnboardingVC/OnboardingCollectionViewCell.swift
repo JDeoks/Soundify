@@ -17,7 +17,6 @@ class OnboardingCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         print("ViewCell", self.frame.size)
-        onboardingDescLabel.isHidden = true
     }
 
 }

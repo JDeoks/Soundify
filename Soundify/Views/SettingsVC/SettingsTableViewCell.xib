@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qMl-eG-AGk">
-                        <rect key="frame" x="20.000000000000007" y="87" width="111.66666666666669" height="40"/>
+                        <rect key="frame" x="20" y="82" width="173.66666666666666" height="50"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTS-XS-0xH">
-                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <rect key="frame" x="0.0" y="5" width="40" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-IK-p0U">
                                         <rect key="frame" x="4" y="4" width="32" height="32"/>
@@ -43,9 +43,15 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계정 관리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bED-gt-BAh">
-                                <rect key="frame" x="52" y="10.333333333333327" width="59.666666666666657" height="19.333333333333329"/>
+                                <rect key="frame" x="52" y="15.333333333333327" width="59.666666666666657" height="19.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                 <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECd-B9-bMe">
+                                <rect key="frame" x="123.66666666666666" y="0.0" width="50" height="50"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <color key="textColor" name="NabTabGray"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -72,6 +78,7 @@
                 <outlet property="imageContainerView" destination="VTS-XS-0xH" id="sTS-Es-euO"/>
                 <outlet property="menuImageView" destination="f4f-IK-p0U" id="MhF-mB-hfS"/>
                 <outlet property="menuLabel" destination="bED-gt-BAh" id="fP6-Kh-hWA"/>
+                <outlet property="pleaseLabel" destination="ECd-B9-bMe" id="3Js-JV-ZYU"/>
                 <outlet property="versionLabel" destination="uHZ-01-NBO" id="m2Y-Ry-R3B"/>
             </connections>
             <point key="canvasLocation" x="425.95419847328242" y="80.281690140845072"/>
@@ -83,6 +90,9 @@
         </namedColor>
         <namedColor name="KeyboardToolBarButton">
             <color red="0.29803921568627451" green="0.29803921568627451" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="NabTabGray">
+            <color red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

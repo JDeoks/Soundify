@@ -73,7 +73,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             cell.menuImageView.image = UIImage(systemName: menuImages[indexPath.row])
-            
+            if indexPath.row == 1 {
+                cell.pleaseLabel.text = "please..."
+            }
         case 1:
             cell.imageContainerView.isHidden = true
             if indexPath.row == 2 {

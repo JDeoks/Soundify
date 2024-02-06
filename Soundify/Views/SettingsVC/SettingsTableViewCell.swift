@@ -13,6 +13,7 @@ class SettingsTableViewCell: UITableViewCell {
     @IBOutlet var menuImageView: UIImageView!
     @IBOutlet var menuLabel: UILabel!
     @IBOutlet var versionLabel: UILabel!
+    @IBOutlet var pleaseLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,5 +26,8 @@ class SettingsTableViewCell: UITableViewCell {
     
     func initUI() {
         imageContainerView.layer.cornerRadius = 4
+        UIView.animate(withDuration: 2) {
+            self.pleaseLabel.alpha = 0
+        }
     }
 }
