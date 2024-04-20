@@ -53,7 +53,6 @@ class SettingsViewController: UIViewController {
     
 }
 
-
 // MARK: - UITableView
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
