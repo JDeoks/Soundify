@@ -2,7 +2,7 @@
 
 ### 손쉬운 동영상 음원 추출
 
-![Soundify_Preview](./Assets/Soundify_Preview.png)
+<img src="./Assets/Soundify_Preview.png" alt="Soundify_Preview" width="100%" />
 
 ### [앱 다운로드 받기](https://apps.apple.com/kr/app/soundify/id6461084209)
 
